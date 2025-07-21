@@ -6,16 +6,17 @@ import { Heading } from './components/heading'
 import { Input } from './components/input'
 import { Strong, Text, TextLink } from './components/text'
 import Logo from './assets/logo.png'
+import { Link } from 'react-router-dom'
 
 function Login() {
   return (
     <AuthLayout>
-      <form action="#" method="POST" className="grid w-full max-w-sm grid-cols-1 gap-8">
+      <form action="/login" method="POST" className="grid w-full max-w-sm grid-cols-1 gap-8">
         <img src={Logo} alt="Logo" className="h-11" />
         <Heading>Sign in to your account</Heading>
         <Field>
-          <Label>Email</Label>
-          <Input type="email" name="email" />
+          <Label>Username</Label>
+          <Input type="username" name="username" />
         </Field>
         <Field>
           <Label>Password</Label>
@@ -37,8 +38,10 @@ function Login() {
         </Button>
         <Text>
           Don’t have an account?{' '}
-          <TextLink href="#">
-            <Strong>Sign up</Strong>
+          <TextLink asChild>
+            <Link to="/register">
+              <Strong>Register</Strong>
+            </Link>
           </TextLink>
         </Text>
       </form>
