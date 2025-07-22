@@ -1,10 +1,10 @@
 import React from "react";
-import api from "../api";
+import api from "../../api";
 
 const Vlan = () => {
     const getVlan = async () => {
         try {
-            const response = await api.get("/vlan/get");
+            const response = await api.get("/network/vlans");
             console.log("vlan data:", response.data);
         } catch (error) {
             if (error.response) {

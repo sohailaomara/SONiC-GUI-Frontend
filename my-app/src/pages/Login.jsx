@@ -7,7 +7,8 @@ const Login = () => {
     try {
       const response = await api.post("/auth/login", credentials);
         console.log("User logged in successfully:", response.data);
-        //todo: redirect to homepage (token storage, etc.)
+        localStorage.setItem("token", response.data.access_token);
+        window.location.href = "/home";
     } catch (error) {
       if (error.response && Array.isArray(error.response.data.detail)) {
         const newErrors = { username: "", password: "", general: "" };
@@ -23,7 +24,7 @@ const Login = () => {
       } else if (error.response && typeof error.response.data.detail === "string") {
         setErrors({ username: "", password: "", general: error.response.data.detail });
       } else {
-        setErrors({ username: "", password: "", general: "Login failed. Try again." });
+        setErrors({ username: "", password: "", general: "Login failed. Try again later." });
       }
     }
   };

@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import './App.css'
 import Login from './pages/Login'
 import Register from './pages/Register'
+//import Home from './pages/test_Home'
+import PrivateRoute from './components/auth/PrivateRoute'
 
 function App() {
   return (
@@ -11,7 +13,8 @@ function App() {
           <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="*" element={<Navigate to="/register" />} />
+            
+            <Route path="/" element={<Navigate to="/register" />} />
           </Routes>
         </div>
       </div>
@@ -19,3 +22,4 @@ function App() {
 }
 
 export default App
+//<Route path="/home" element={<PrivateRoute><Home /></PrivateRoute>} />

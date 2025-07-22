@@ -2,12 +2,12 @@ import React from "react";
 import api from "../api";
 import RegisterForm from "./Register_form";
 
-const Auth = () => {
+const Register = () => {
   const handleSignUp = async (userData, setErrors) => {
   try {
     const response = await api.post("/auth/signup", userData);
     console.log("User signed up successfully:", response.data);
-    //todo: redirect to homepage (token storage, etc.)
+    window.location.href = "/login";
   } catch (error) {
     if (error.response && Array.isArray(error.response.data.detail)) {
       const newErrors = { username: "", email: "", password: "" };
@@ -34,4 +34,4 @@ const Auth = () => {
   );
 };
 
-export default Auth;
+export default Register;
