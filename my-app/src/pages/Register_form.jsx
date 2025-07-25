@@ -71,7 +71,7 @@ const [errors, setErrors] = useState({
             required
           />
           {errors.username && (
-        <span className="text-xs text-red-500 mt-1">{errors.username}</span>
+        <span className="text-s text-red-500 mt-1">{errors.username}</span>
         )}
         </Field>
         
@@ -87,7 +87,7 @@ const [errors, setErrors] = useState({
             required
           />
           {errors.password && (
-        <span className="text-xs text-red-500 mt-1">{errors.password}</span>
+        <span className="text-s text-red-500 mt-1">{errors.password}</span>
         )}
         </Field>
         

@@ -28,7 +28,6 @@ const Register = () => {
 
   return (
     <div>
-      <h2>Sign Up</h2>
       <RegisterForm handleSignUp={handleSignUp} />
     </div>
   );
