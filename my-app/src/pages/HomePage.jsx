@@ -2,11 +2,13 @@ import { useEffect, useState } from 'react';
 import { AppWindow } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import GetVlans from '../components/vlans/get_vlans';
+import PostVlan from '../components/vlans/post_vlans';
 import PortOp from '../components/port_operation/get_port_op';
 
 export default function HomePage() {
   const [time, setTime] = useState(new Date());
   const navigate = useNavigate();
+  const [showPostVlan, setShowPostVlan] = useState(false);
 
   const username = "User"; // Replace this with actual user logic if needed
 
@@ -46,6 +48,25 @@ export default function HomePage() {
             <GetVlans/>
         </div>
         </Card>
+      </main>
+      <main className="w-full px-8 py-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-6">
+        <Card title="Create VLAN" icon={<AppWindow className="text-orange-500" />}>
+          <div className="w-full px-8 py-6">
+            <button
+              onClick={() => setShowPostVlan(!showPostVlan)}
+              className="bg-orange-400 hover:bg-orange-500 text-white font-semibold px-4 py-2 rounded"
+            >
+              {showPostVlan ? "Hide VLAN Form" : "VLAN Form"}
+            </button>
+
+            {showPostVlan && (
+              <div className="mt-4">
+                <PostVlan />
+              </div>
+            )}
+          </div>
+        </Card>
+
       </main>
             <main className="w-full px-8 py-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-6">
         <Card title="Port-Op Data" icon={<AppWindow className="text-orange-500" />}>

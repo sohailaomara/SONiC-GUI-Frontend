@@ -1,25 +1,99 @@
-import React from "react";
+import React, { useState } from "react";
 import api from "../../api";
 
-const post_vlans = () => {
-    const postVlan = async () => {
-        try {
-            const response = await api.get("/network/vlans");
-            console.log("vlan data:", response.data);
-        } catch (error) {
-            if (error.response) {
-                alert("Failed to fetch vlan data: " + error.response.data.detail);
-            } else {
-                console.error("Unknown error:", error);
-            }
-        }
+const PostVlan = () => {
+  const [vlanId, setVlanId] = useState("");
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [macLearning, setMacLearning] = useState("enabled"); // or "disabled"
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setMessage("");
+
+    const vlanPayload = {
+      "sonic-vlan:VLAN_LIST": [
+        {
+          vlanid: parseInt(vlanId),
+          name,
+          description,
+          mac_learning: macLearning,
+        },
+      ],
+    };
+
+    try {
+      const response = await api.post("/vlans/", {
+        "sonic-vlan:sonic-vlan": {
+          VLAN: vlanPayload,
+        },
+      });
+
+      setMessage("VLAN created successfully!");
+    } catch (error) {
+      if (error.response) {
+        setMessage("Error: " + error.response.data.detail);
+      } else {
+        setMessage("Unknown error occurred.");
+        console.error(error);
+      }
     }
 
-    return (
-        <div>
-            <button onClick={postVlan}>Post Vlan Data</button>
-        </div>
-    );
+    setLoading(false);
+  };
+
+  return (
+    <div className="w-full p-4 border rounded shadow">
+      {/* <h2 className="text-xl font-bold mb-4 text-orange-600">Create VLAN</h2> */}
+      <form onSubmit={handleSubmit} className="space-y-3">
+        <input
+          type="number"
+          placeholder="VLAN ID"
+          value={vlanId}
+          onChange={(e) => setVlanId(e.target.value)}
+          required
+          className="w-full px-3 py-2 border rounded"
+        />
+        <input
+          type="text"
+          placeholder="Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+          className="w-full px-3 py-2 border rounded"
+        />
+        <input
+          type="text"
+          placeholder="Description (optional)"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          className="w-full px-3 py-2 border rounded"
+        />
+        <select
+          value={macLearning}
+          onChange={(e) => setMacLearning(e.target.value)}
+          className="w-full px-3 py-2 border rounded"
+        >
+          <option value="enabled">MAC Learning: Enabled</option>
+          <option value="disabled">MAC Learning: Disabled</option>
+        </select>
+        <button
+          type="submit"
+          className="w-full bg-orange-400 hover:bg-orange-500 text-white font-semibold py-2 px-4 rounded"
+          disabled={loading}
+        >
+          {loading ? "Creating..." : "Create VLAN"}
+        </button>
+      </form>
+
+      {message && (
+        <p className="mt-4 text-sm text-center text-gray-700">{message}</p>
+      )}
+    </div>
+  );
 };
 
-export default get_vlans;
+export default PostVlan;
