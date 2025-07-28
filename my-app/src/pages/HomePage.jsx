@@ -8,7 +8,7 @@ export default function HomePage() {
   const [time, setTime] = useState(new Date());
   const navigate = useNavigate();
 
-  const username = "Sohaila"; // Replace this with actual user logic if needed
+  const username = "User"; // Replace this with actual user logic if needed
 
   useEffect(() => {
     const interval = setInterval(() => setTime(new Date()), 1000);
@@ -40,24 +40,20 @@ export default function HomePage() {
 
 
       {/* Dashboard Content */}
-      <main className="w-full px-8 py-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        <Card title="Applications" icon={<AppWindow className="text-orange-500" />}>
-          <div className="flex gap-4 flex-wrap">
-            <button className="bg-gray-200 hover:bg-orange-400 hover:text-white px-5 py-2 rounded shadow">
-              Terminal
-            </button>
-            <button className="bg-gray-200 hover:bg-orange-400 hover:text-white px-5 py-2 rounded shadow">
-              Files
-            </button>
-          </div>
-        </Card>
-      </main>
-        <div className="w-full px-8 py-6">
+      <main className="w-full px-8 py-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-6">
+        <Card title="VLAN Data" icon={<AppWindow className="text-orange-500" />}>
+                  <div className="w-full px-8 py-6">
             <GetVlans/>
         </div>
+        </Card>
+      </main>
+            <main className="w-full px-8 py-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-6">
+        <Card title="Port-Op Data" icon={<AppWindow className="text-orange-500" />}>
         <div className="w-full px-8 py-6">
             <PortOp/>
         </div>
+        </Card>
+      </main>
     </div>
   );
 }
