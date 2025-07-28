@@ -4,11 +4,14 @@ import { useNavigate } from 'react-router-dom';
 import GetVlans from '../components/vlans/get_vlans';
 import PostVlan from '../components/vlans/post_vlans';
 import PortOp from '../components/port_operation/get_port_op';
+import PutVlans from '../components/vlans/put_vlans'; 
+
 
 export default function HomePage() {
   const [time, setTime] = useState(new Date());
   const navigate = useNavigate();
   const [showPostVlan, setShowPostVlan] = useState(false);
+  const [showPutVlan, setShowPutVlan] = useState(false); 
 
   const username = "User"; // Replace this with actual user logic if needed
 
@@ -68,6 +71,26 @@ export default function HomePage() {
         </Card>
 
       </main>
+
+      <main className="w-full px-8 py-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-6">
+  <Card title="Update VLAN" icon={<AppWindow className="text-orange-500" />}>
+    <div className="w-full px-8 py-6">
+      <button
+        onClick={() => setShowPutVlan(!showPutVlan)}
+        className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded"
+      >
+        {showPutVlan ? "Hide Update Form" : "Update VLAN Form"}
+      </button>
+
+      {showPutVlan && (
+        <div className="mt-4">
+          <PutVlans />
+        </div>
+      )}
+    </div>
+  </Card>
+</main>
+
             <main className="w-full px-8 py-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-6">
         <Card title="Port-Op Data" icon={<AppWindow className="text-orange-500" />}>
         <div className="w-full px-8 py-6">
