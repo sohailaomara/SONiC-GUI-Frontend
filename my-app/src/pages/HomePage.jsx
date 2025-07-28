@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { AppWindow } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import GetVlans from '../components/vlans/get_vlans';
+import PortOp from '../components/port_operation/get_port_op';
 
 export default function HomePage() {
   const [time, setTime] = useState(new Date());
@@ -49,9 +51,13 @@ export default function HomePage() {
             </button>
           </div>
         </Card>
-
-        {/* Add more cards here if needed */}
       </main>
+        <div className="w-full px-8 py-6">
+            <GetVlans/>
+        </div>
+        <div className="w-full px-8 py-6">
+            <PortOp/>
+        </div>
     </div>
   );
 }
