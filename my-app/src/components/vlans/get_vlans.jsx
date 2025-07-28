@@ -1,7 +1,7 @@
 import React from "react";
 import api from "../../api";
 
-const Vlan = () => {
+const get_vlans = () => {
     const getVlan = async () => {
         try {
             const response = await api.get("/network/vlans");
@@ -22,4 +22,4 @@ const Vlan = () => {
     );
 };
 
-export default Vlan;
+export default get_vlans;
