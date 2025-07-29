@@ -8,7 +8,7 @@ const GetPortOp = () => {
   const getPortOp = async () => {
     setLoading(true);
     try {
-      const response = await api.get("/port_oper/po");
+      const response = await api.get("/portOp/");
 
       const portList =
         response.data["sonic-port-oper:sonic-port-oper"]?.PORT_TABLE

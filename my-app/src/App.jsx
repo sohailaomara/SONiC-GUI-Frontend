@@ -50,4 +50,3 @@ function App() {
 
 export default App;
 
-//<Route path="/home" element={<PrivateRoute><Home /></PrivateRoute>} />

@@ -70,7 +70,7 @@ const PatchVlan = () => {
   };
 
   try {
-    await api.patch(`/vlans/patch`, patchPayload);
+    await api.patch(`/vlans/patch_vlans`, patchPayload);
     setStatus("VLAN patched successfully.");
     fetchVlans();
   } catch (error) {

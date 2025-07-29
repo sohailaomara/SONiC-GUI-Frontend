@@ -36,10 +36,10 @@ const GetVlans = () => {
         <table className="w-full text-sm border border-gray-200 rounded shadow">
           <thead className="bg-orange-200 text-orange-800">
             <tr>
-              <th className="px-4 py-2 text-left">VLAN ID</th>
-              <th className="px-4 py-2 text-left">Name</th>
-              <th className="px-4 py-2 text-left">Description</th>
-              <th className="px-4 py-2 text-left">MAC Learning</th>
+              <th className="px-4 py-2 text-center">VLAN ID</th>
+              <th className="px-4 py-2 text-center">Name</th>
+              <th className="px-4 py-2 text-center">Description</th>
+              <th className="px-4 py-2 text-center">MAC Learning</th>
             </tr>
           </thead>
           <tbody>
