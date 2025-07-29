@@ -28,7 +28,7 @@ const GetVlans = () => {
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full text-gray-800" >
       <button
         onClick={getVlan}
         className="bg-orange-400 hover:bg-orange-500 text-white px-5 py-2 rounded shadow mb-4"
@@ -43,9 +43,9 @@ const GetVlans = () => {
       {showTable && (
         vlans.length > 0 ? (
           <>
-            <div className="overflow-y-auto max-h-[320px] border border-gray-200 rounded shadow dark:border-gray-700 dark:text-white">
+            <div className="overflow-y-auto max-h-[320px] border border-gray-200 rounded shadow ">
               <table className="w-full text-sm">
-                <thead className="bg-orange-200 text-orange-800 dark:bg-orange-900 dark:text-orange-100 sticky top-0">
+                <thead className="bg-orange-200 text-orange-800 sticky top-0">
                   <tr>
                     <th className="px-4 py-2 text-center">VLAN ID</th>
                     <th className="px-4 py-2 text-center">Name</th>
@@ -57,13 +57,13 @@ const GetVlans = () => {
                   {vlans.map((vlan, index) => (
                     <tr
                       key={index}
-                      className="border-t hover:bg-gray-50 dark:hover:bg-gray-800"
+                      className="border-t hover:bg-gray-50 "
                     >
                       <td className="px-4 py-2">{vlan.vlanid}</td>
                       <td className="px-4 py-2">{vlan.name}</td>
                       <td className="px-4 py-2">
                         {vlan.description || (
-                          <span className="text-gray-400 dark:text-gray-500">
+                          <span className="text-gray-400 ">
                             —
                           </span>
                         )}
@@ -79,7 +79,7 @@ const GetVlans = () => {
           </>
         ) : (
           !loading && (
-            <p className="text-gray-500 dark:text-gray-400 text-sm">
+            <p className="text-gray-500  text-sm">
               No VLANs found.
             </p>
           )
