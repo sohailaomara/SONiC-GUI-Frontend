@@ -2,6 +2,7 @@ import Layout from '../components/Layout';
 import PostVlan from '../components/vlans/post_vlans';
 import PatchVlan from '../components/vlans/patch_vlans';
 import GetVlans from '../components/vlans/get_vlans';
+import PutVlan from "../components/vlans/put_vlans";
 import { AppWindow } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
@@ -27,6 +28,9 @@ export default function VlanPage() {
       </Section>
       <Section title="VLAN Data" icon={<AppWindow className="text-orange-500" />}>
         <GetVlans />
+      </Section>
+      <Section title="PUT VLAN" icon={<AppWindow className="text-orange-500" />}>
+        <PutVlan />
       </Section>
     </Layout>
   );
