@@ -34,9 +34,10 @@ const GetPortOp = () => {
         {loading ? "Loading..." : "Get Port-Op Data"}
       </button>
 
-      {ports.length > 0 ? (
-        <table className="w-full text-sm border border-gray-200 rounded shadow">
-          <thead className="bg-orange-100 text-orange-700">
+    {ports.length > 0 ? (
+      <div className="overflow-y-auto max-h-[300px] border border-gray-200 rounded shadow">
+        <table className="w-full text-sm">
+          <thead className="bg-orange-100 text-orange-700 sticky top-0">
             <tr>
               <th className="px-4 py-2 text-center">Index</th>
               <th className="px-4 py-2 text-center">IfName</th>
@@ -46,28 +47,28 @@ const GetPortOp = () => {
               <th className="px-4 py-2 text-center">Description</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="text-gray-900">
             {ports.map((port, idx) => (
-              <tr key={idx} className="border-t hover:bg-gray-50 text-gray-900">
+              <tr key={idx} className="border-t hover:bg-gray-50">
                 <td className="px-4 py-2">{port.index}</td>
                 <td className="px-4 py-2">{port.ifname}</td>
                 <td className="px-4 py-2">{port.alias}</td>
                 <td className="px-4 py-2 capitalize">{port.admin_status}</td>
                 <td className="px-4 py-2 capitalize">{port.oper_status}</td>
                 <td className="px-4 py-2">
-                  {port.description || (
-                    <span className="text-gray-400">—</span>
-                  )}
+                  {port.description || <span className="text-gray-400">—</span>}
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
-      ) : (
-        !loading && (
-          <p className="text-gray-500 text-sm">No Port-Op data found yet.</p>
-        )
-      )}
+      </div>
+    ) : (
+      !loading && (
+        <p className="text-gray-500 text-sm">No Port-Op data found yet.</p>
+      )
+    )}
+
     </div>
   );
 };
