@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import api from "../../api";
+import { Tag } from "lucide-react";
 
 const PostVlan = () => {
   const [vlanId, setVlanId] = useState("");
@@ -9,6 +10,7 @@ const PostVlan = () => {
   const [macLearning, setMacLearning] = useState("enabled");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
+  const [Tagging, setTagging] = useState("Tagged");
 
 const handleSubmit = async (e) => {
   e.preventDefault();
@@ -31,7 +33,7 @@ const handleSubmit = async (e) => {
       {
         "name": name,
         "ifname": ifname,
-        "tagging_mode": "tagged"
+        "tagging_mode": Tagging
       }
     ]
   }
@@ -105,6 +107,14 @@ const handleSubmit = async (e) => {
           required
           className="w-full px-3 py-2 border rounded bg-gray-100"
         />
+        <select
+          value={Tagging}
+          onChange={(e) => setTagging(e.target.value)}
+          className="w-full px-3 py-2 border rounded bg-gray-100 text-gray-900"
+        >
+          <option value="Tagged">Tagging bit: Tagged</option>
+          <option value="Untagged">Tagging bit: Untagged</option>
+        </select>
         <button
           type="submit"
           className="w-full bg-orange-400 hover:bg-orange-500 text-white font-semibold py-2 px-4 rounded"

@@ -12,16 +12,36 @@ const PatchVlan = () => {
     fetchVlans();
   }, []);
 
-  const fetchVlans = async () => {
-    try {
-      const response = await api.get("/vlans/");
-      const vlanList =
-        response.data["sonic-vlan:sonic-vlan"]?.VLAN?.VLAN_LIST || [];
-      setVlans(vlanList);
-    } catch (error) {
-      console.error("Failed to fetch VLANs:", error);
-    }
-  };
+const fetchVlans = async () => {
+  try {
+    const response = await api.get("/vlans/");
+    const vlanList =
+      response.data["sonic-vlan:sonic-vlan"]?.VLAN?.VLAN_LIST || [];
+    const vlanMemberList =
+      response.data["sonic-vlan:sonic-vlan"]?.VLAN_MEMBER?.VLAN_MEMBER_LIST || [];
+
+    // Create a map from VLAN name to member fields
+    const memberMap = {};
+    vlanMemberList.forEach((member) => {
+      // Only assign ifname and tagging_mode to simplify (ignore multiple members)
+      memberMap[member.name] = {
+        ifname: member.ifname,
+        tagging_mode: member.tagging_mode,
+      };
+    });
+
+    // Merge member data into each VLAN
+    const combinedList = vlanList.map((vlan) => ({
+      ...vlan,
+      ...memberMap[vlan.name], // Adds ifname & tagging_mode if available
+    }));
+
+    setVlans(combinedList);
+  } catch (error) {
+    console.error("Failed to fetch VLANs:", error);
+  }
+};
+
 
   const handleSelectChange = (e) => {
     const vlanId = parseInt(e.target.value);
@@ -37,8 +57,10 @@ const PatchVlan = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handlePatch = async () => {
+const handlePatch = async () => {
   if (!selectedVlanId) return;
+
+  setStatus("Patching...");
 
   const changedFields = {};
   for (const key in formData) {
@@ -52,16 +74,17 @@ const PatchVlan = () => {
     return;
   }
 
-  
+  const vlan = {
+    name: formData.name,
+    vlanid: parseInt(formData.vlanid),
+    description: formData.description || "",
+    mac_learning: formData.mac_learning,
+  };
+
   const patchPayload = {
     "sonic-vlan:sonic-vlan": {
       VLAN: {
-        VLAN_LIST: [
-          {
-            ...originalData,
-            ...changedFields,
-          },
-        ],
+        VLAN_LIST: [vlan],
       },
       VLAN_MEMBER: {
         VLAN_MEMBER_LIST: [],
@@ -69,15 +92,30 @@ const PatchVlan = () => {
     },
   };
 
+  if ("ifname" in changedFields || "tagging_mode" in changedFields) {
+    patchPayload["sonic-vlan:sonic-vlan"].VLAN_MEMBER.VLAN_MEMBER_LIST.push({
+      name: formData.name,
+      ifname: formData.ifname,
+      tagging_mode: formData.tagging_mode?.toLowerCase?.() || "tagged",
+    });
+  }
+
   try {
-    await api.patch(`/vlans/patch_vlans`, patchPayload);
-    setStatus("VLAN patched successfully.");
+    await api.patch("/vlans/patch_vlans", patchPayload, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    setStatus("✅ VLAN patched successfully.");
     fetchVlans();
   } catch (error) {
-    setStatus("Patch failed.");
-    console.error("Patch error:", error);
+    console.error("Patch error:", error.response?.data || error);
+    setStatus("❌ Error: " + (error.response?.data?.detail || "Unknown error"));
   }
 };
+
+
+
 
 
   return (
@@ -146,6 +184,30 @@ const PatchVlan = () => {
                 <option value="disabled">disabled</option>
               </select>
             </div>
+            <div>
+              <label className="block text-sm text-orange-500">ifName</label>
+              <input
+                type="text"
+                name="ifname"
+                value={formData.ifname || ""}
+                onChange={handleInputChange}
+                className="w-full border p-2 rounded bg-gray-100"
+              />
+            </div>
+            <div>
+              <label className="block text-sm text-orange-500">Tagging Mode</label>
+              <select
+              name="tagging_mode"
+              value={formData.tagging_mode || ""}
+              onChange={handleInputChange}
+              className="w-full border p-2 rounded bg-gray-100 text-gray-900"
+              >
+                 <option value="tagged">Tagged</option>
+                 <option value="untagged">Untagged</option>
+              </select>
+
+            </div>
+
           </div>
 
           <div className="flex gap-2">
