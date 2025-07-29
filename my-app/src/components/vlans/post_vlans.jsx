@@ -92,7 +92,7 @@ const handleSubmit = async (e) => {
         <select
           value={macLearning}
           onChange={(e) => setMacLearning(e.target.value)}
-          className="w-full px-3 py-2 border rounded bg-gray-100"
+          className="w-full px-3 py-2 border rounded bg-gray-100 text-gray-900"
         >
           <option value="enabled">MAC Learning: Enabled</option>
           <option value="disabled">MAC Learning: Disabled</option>

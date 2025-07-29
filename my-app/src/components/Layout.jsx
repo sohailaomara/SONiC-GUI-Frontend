@@ -46,7 +46,7 @@ export default function Layout({ children }) {
               <Menu />
             </button>
             <div>
-              <h1 className="text-xl font-semibold">
+              <h1 className="text-xl font-semibold text-gray-900">
                 Hello, <span className="text-orange-500">{username}</span>
               </h1>
               <p className="text-sm text-gray-500">{time.toLocaleTimeString()}</p>

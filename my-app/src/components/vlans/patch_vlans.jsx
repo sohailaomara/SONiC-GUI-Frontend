@@ -81,13 +81,13 @@ const PatchVlan = () => {
 
 
   return (
-    <div className="w-1/3 mx-auto p-4">
+    <div className="w-1/3 mx-auto p-4 text-gray-900">
       <div className="mb-4">
-        <label className="block mb-1 text-sm font-medium">Select VLAN</label>
+        <label className="block mb-1 text-sm font-medium text-orange-500">Select VLAN</label>
         <select
           value={selectedVlanId || ""}
           onChange={handleSelectChange}
-          className="w-full border rounded p-2 bg-gray-100"
+          className="w-full border rounded p-2 bg-gray-100 text-gray-900"
         >
           <option value="" disabled>Select a VLAN</option>
           {vlans.map((vlan) => (
@@ -102,7 +102,7 @@ const PatchVlan = () => {
         <>
           <div className="grid grid-cols-1 gap-4 mb-4">
             <div>
-              <label className="block text-sm">VLAN ID</label>
+              <label className="block text-sm text-orange-500">VLAN ID</label>
               <input
                 type="number"
                 name="vlanid"
@@ -113,7 +113,7 @@ const PatchVlan = () => {
             </div>
 
             <div>
-              <label className="block text-sm">Name</label>
+              <label className="block text-sm text-orange-500">Name</label>
               <input
                 type="text"
                 name="name"
@@ -124,7 +124,7 @@ const PatchVlan = () => {
             </div>
 
             <div>
-              <label className="block text-sm">Description</label>
+              <label className="block text-sm text-orange-500">Description</label>
               <input
                 type="text"
                 name="description"
@@ -135,12 +135,12 @@ const PatchVlan = () => {
             </div>
 
             <div>
-              <label className="block text-sm">MAC Learning</label>
+              <label className="block text-sm text-orange-500">MAC Learning</label>
               <select
                 name="mac_learning"
                 value={formData.mac_learning || "enabled"}
                 onChange={handleInputChange}
-                className="w-full border p-2 rounded bg-gray-100"
+                className="w-full border p-2 rounded bg-gray-100 text-gray-900"
               >
                 <option value="enabled">enabled</option>
                 <option value="disabled">disabled</option>
