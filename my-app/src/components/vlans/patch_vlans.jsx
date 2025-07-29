@@ -140,7 +140,7 @@ const handlePatch = async () => {
         <>
           <div className="grid grid-cols-1 gap-4 mb-4">
             <div>
-              <label className="block text-sm text-orange-500">VLAN ID</label>
+              <label className="block mb-1 text-sm font-medium text-orange-500">VLAN ID</label>
               <input
                 type="number"
                 name="vlanid"
@@ -151,7 +151,7 @@ const handlePatch = async () => {
             </div>
 
             <div>
-              <label className="block text-sm text-orange-500">Name</label>
+              <label className="block mb-1 text-sm font-medium text-orange-500">Name</label>
               <input
                 type="text"
                 name="name"
@@ -162,7 +162,7 @@ const handlePatch = async () => {
             </div>
 
             <div>
-              <label className="block text-sm text-orange-500">Description</label>
+              <label className="block mb-1 text-sm font-medium text-orange-500">Description</label>
               <input
                 type="text"
                 name="description"
@@ -173,7 +173,7 @@ const handlePatch = async () => {
             </div>
 
             <div>
-              <label className="block text-sm text-orange-500">MAC Learning</label>
+              <label className="block mb-1 text-sm font-medium text-orange-500">MAC Learning</label>
               <select
                 name="mac_learning"
                 value={formData.mac_learning || "enabled"}
@@ -185,7 +185,7 @@ const handlePatch = async () => {
               </select>
             </div>
             <div>
-              <label className="block text-sm text-orange-500">ifName</label>
+              <label className="block mb-1 text-sm font-medium text-orange-500">ifName</label>
               <input
                 type="text"
                 name="ifname"
@@ -195,7 +195,7 @@ const handlePatch = async () => {
               />
             </div>
             <div>
-              <label className="block text-sm text-orange-500">Tagging Mode</label>
+              <label className="block mb-1 text-sm font-medium text-orange-500">Tagging Mode</label>
               <select
               name="tagging_mode"
               value={formData.tagging_mode || ""}
@@ -213,9 +213,9 @@ const handlePatch = async () => {
           <div className="flex gap-2">
             <button
               onClick={handlePatch}
-              className="bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-700"
+              className="bg-orange-400 text-white px-4 py-2 rounded hover:bg-orange-500"
             >
-              PATCH VLAN
+              Patch VLAN
             </button>
             <button
               onClick={() => {
