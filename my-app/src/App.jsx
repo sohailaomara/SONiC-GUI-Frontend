@@ -4,6 +4,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import PrivateRoute from './components/auth/PrivateRoute';
 import HomePage from './pages/HomePage';
+import Vlanpage from './pages/Vlanpage';
 
 function App() {
   return (
@@ -44,6 +45,7 @@ function App() {
           //</PrivateRoute>
         }
       />
+      <Route path="/vlan" element={<Vlanpage />} />
     </Routes>
   );
 }

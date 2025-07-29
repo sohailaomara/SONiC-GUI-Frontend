@@ -81,8 +81,7 @@ const PatchVlan = () => {
 
 
   return (
-    <div className="p-4 bg-white w-full max-w-xl">
-
+    <div className="w-1/3 mx-auto p-4">
       <div className="mb-4">
         <label className="block mb-1 text-sm font-medium">Select VLAN</label>
         <select

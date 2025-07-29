@@ -1,24 +1,32 @@
 import Layout from '../components/Layout';
-import { AppWindow } from 'lucide-react';
-import GetVlans from '../components/vlans/get_vlans';
 import PostVlan from '../components/vlans/post_vlans';
 import PatchVlan from '../components/vlans/patch_vlans';
-import PortOp from '../components/port_operation/get_port_op';
+import GetVlans from '../components/vlans/get_vlans';
+import { AppWindow } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
-export default function HomePage() {
+export default function VlanPage() {
+  const navigate = useNavigate();
+
   return (
     <Layout>
-      {/* <Section title="VLAN Data" icon={<AppWindow className="text-orange-500" />}>
-        <GetVlans />
-      </Section>
+      <div className="flex justify-end mb-4">
+        <button
+          onClick={() => navigate('/home')}
+          className="text-sm px-4 py-2 bg-orange-600 hover:bg-orange-700 text-white rounded"
+        >
+          ← Back to Home
+        </button>
+      </div>
+
       <Section title="Create VLAN" icon={<AppWindow className="text-orange-500" />}>
         <PostVlan />
       </Section>
       <Section title="Patch VLAN" icon={<AppWindow className="text-orange-500" />}>
         <PatchVlan />
-      </Section> */}
-      <Section title="Port Operation" icon={<AppWindow className="text-orange-500" />}>
-        <PortOp />
+      </Section>
+      <Section title="VLAN Data" icon={<AppWindow className="text-orange-500" />}>
+        <GetVlans />
       </Section>
     </Layout>
   );

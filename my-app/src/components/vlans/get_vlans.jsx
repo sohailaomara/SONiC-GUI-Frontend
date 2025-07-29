@@ -27,7 +27,7 @@ const GetVlans = () => {
     <div className="w-full">
       <button
         onClick={getVlan}
-        className="bg-gray-200 hover:bg-orange-400 hover:text-white px-5 py-2 rounded shadow mb-4"
+        className="bg-orange-400 hover:bg-orange-500 text-white hover: px-5 py-2 rounded shadow mb-4"
       >
         {loading ? "Loading..." : "Get VLAN Data"}
       </button>
