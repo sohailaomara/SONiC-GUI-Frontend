@@ -8,7 +8,7 @@ const GetPortOp = () => {
   const getPortOp = async () => {
     setLoading(true);
     try {
-      const response = await api.get("/port_oper/po");
+      const response = await api.get("/portOp/");
 
       const portList =
         response.data["sonic-port-oper:sonic-port-oper"]?.PORT_TABLE
@@ -29,7 +29,7 @@ const GetPortOp = () => {
     <div className="w-full">
       <button
         onClick={getPortOp}
-        className="bg-gray-200 hover:bg-orange-400 hover:text-white px-5 py-2 rounded shadow mb-4"
+        className="bg-orange-400 hover:bg-orange-500 text-white hover:px-5 py-2 rounded shadow mb-4"
       >
         {loading ? "Loading..." : "Get Port-Op Data"}
       </button>
