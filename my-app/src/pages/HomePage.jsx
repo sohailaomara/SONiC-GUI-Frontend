@@ -1,22 +1,10 @@
 import Layout from '../components/Layout';
 import { AppWindow } from 'lucide-react';
-import GetVlans from '../components/vlans/get_vlans';
-import PostVlan from '../components/vlans/post_vlans';
-import PatchVlan from '../components/vlans/patch_vlans';
 import PortOp from '../components/port_operation/get_port_op';
 
 export default function HomePage() {
   return (
     <Layout>
-      {/* <Section title="VLAN Data" icon={<AppWindow className="text-orange-500" />}>
-        <GetVlans />
-      </Section>
-      <Section title="Create VLAN" icon={<AppWindow className="text-orange-500" />}>
-        <PostVlan />
-      </Section>
-      <Section title="Patch VLAN" icon={<AppWindow className="text-orange-500" />}>
-        <PatchVlan />
-      </Section> */}
       <Section title="Port Operation" icon={<AppWindow className="text-orange-500" />}>
         <PortOp />
       </Section>

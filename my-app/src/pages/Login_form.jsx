@@ -79,7 +79,7 @@ const Login_form = ({ handleLogin }) => {
           <span className="text-s text-red-500 -mt-4">{errors.general}</span>
         )}
 
-        <Button type="submit" className="w-full">
+        <Button type="submit" className="w-full bg-orange-500 text-white hover:bg-orange-600">
           Login
         </Button>
 

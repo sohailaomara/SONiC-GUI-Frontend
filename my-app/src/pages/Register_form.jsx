@@ -92,7 +92,7 @@ const [errors, setErrors] = useState({
         </Field>
         
 
-        <Button type="submit" className="w-full">
+        <Button type="submit" className="w-full bg-orange-500 text-white hover:bg-orange-600">
           Create account
         </Button>
 

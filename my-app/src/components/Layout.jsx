@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Menu } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 
 export default function Layout({ children }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -26,10 +26,20 @@ export default function Layout({ children }) {
          />
         )}
       {/* Sidebar */}
-    <div className={`bg-orange-200 text-white w-40 p-6 transition-transform duration-300 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} fixed h-full z-40`}>
-    <nav className="flex flex-col gap-4 mt-10">
-        <Link to="/home" onClick={() => setSidebarOpen(false)} className="text-orange-400 hover:text-orange-500">Home</Link>
-        <Link to="/vlan" onClick={() => setSidebarOpen(false)} className="text-orange-400 hover:text-orange-500">VLAN</Link>
+    <div className={`transform bg-gray-100 border border-gray-300 text-white w-56 p-4 transition-transform duration-300 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} fixed h-full z-40 rounded-r-xl shadow-xl`}>
+      {/* Sidebar header/logo */}
+    <div className="flex items-center justify-between mb-6">
+          <button
+        onClick={() => setSidebarOpen(!sidebarOpen)}
+        className="mx-auto mb-2 block p-2 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-800"
+  >
+    {sidebarOpen ? <X className="w-6 h-6 text-grey-700" /> : <Menu className="w-5 h-5" />}
+  </button>
+
+    </div>
+    <nav className="flex flex-col gap-2">
+        <Link to="/home" onClick={() => setSidebarOpen(false)} className="text-orange-500 font-medium hover:text-orange-600">Home</Link>
+        <Link to="/vlan" onClick={() => setSidebarOpen(false)} className="text-orange-500 font-medium hover:text-orange-600">VLAN</Link>
     </nav>
     </div>
 
@@ -41,9 +51,9 @@ export default function Layout({ children }) {
           <div className="flex items-center gap-4">
             <button
               onClick={() => setSidebarOpen(!sidebarOpen)}
-              className="sm:hidden"
+              className="block text-grey-700 z-50"
             >
-              <Menu />
+              {sidebarOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
             <div>
               <h1 className="text-xl font-semibold text-gray-900">
