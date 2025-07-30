@@ -10,7 +10,7 @@ const PostVlan = () => {
   const [macLearning, setMacLearning] = useState("enabled");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
-  const [Tagging, setTagging] = useState("Tagged");
+  const [Tagging, setTagging] = useState("tagged");
 
 const handleSubmit = async (e) => {
   e.preventDefault();
@@ -40,6 +40,7 @@ const handleSubmit = async (e) => {
 };
 
   try {
+    // eslint-disable-next-line no-unused-vars
     const response = await api.post("/vlans/add_vlans", payload, {
   headers: {
     "Content-Type": "application/json"
@@ -48,14 +49,25 @@ const handleSubmit = async (e) => {
 
     setMessage(" VLAN created successfully!");
   } catch (error) {
-    if (error.response) {
-      console.error("Validation error:", error.response.data);
-      setMessage(" Error: " + error.response.data.detail);
+  setLoading(false);
+
+  if (error.response) {
+    const status = error.response.status;
+    const detail = error.response.data?.detail;
+
+    if (status === 500 && Tagging === "untagged") {
+      setMessage("❗ Error: This Ethernet port already has an untagged VLAN. Only one untagged VLAN is allowed per port.");
+    } else if (detail) {
+      setMessage("❗ Error: " + detail);
     } else {
-      setMessage(" Unknown error occurred.");
-      console.error(error);
+      setMessage("❗ Error: " + JSON.stringify(error.response.data));
     }
+  } else {
+    setMessage("❗ Unknown error occurred. Please check network or console.");
+    console.error(error);
   }
+}
+
 
   setLoading(false);
 };
