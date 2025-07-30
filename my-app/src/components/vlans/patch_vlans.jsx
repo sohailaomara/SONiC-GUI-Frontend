@@ -146,7 +146,7 @@ const handlePatch = async () => {
                 name="vlanid"
                 value={formData.vlanid}
                 disabled
-                className="w-full border p-2 rounded bg-gray-100"
+                className="w-full border p-2 rounded bg-gray-100 text-gray-900"
               />
             </div>
 
@@ -157,7 +157,7 @@ const handlePatch = async () => {
                 name="name"
                 value={formData.name || ""}
                 onChange={handleInputChange}
-                className="w-full border p-2 rounded bg-gray-100"
+                className="w-full border p-2 rounded bg-gray-100 text-gray-900"
               />
             </div>
 
@@ -168,7 +168,7 @@ const handlePatch = async () => {
                 name="description"
                 value={formData.description || ""}
                 onChange={handleInputChange}
-                className="w-full border p-2 rounded bg-gray-100"
+                className="w-full border p-2 rounded bg-gray-100 text-gray-900"
               />
             </div>
 
@@ -180,8 +180,8 @@ const handlePatch = async () => {
                 onChange={handleInputChange}
                 className="w-full border p-2 rounded bg-gray-100 text-gray-900"
               >
-                <option value="enabled">enabled</option>
-                <option value="disabled">disabled</option>
+                <option value="enabled">Enabled</option>
+                <option value="disabled">Disabled</option>
               </select>
             </div>
             <div>
@@ -191,7 +191,7 @@ const handlePatch = async () => {
                 name="ifname"
                 value={formData.ifname || ""}
                 onChange={handleInputChange}
-                className="w-full border p-2 rounded bg-gray-100"
+                className="w-full border p-2 rounded bg-gray-100 text-gray-900"
               />
             </div>
             <div>

@@ -129,127 +129,124 @@ setFormData({
 // };
 
 
-  return (
-    <div className="w-1/3 mx-auto p-4">
-      <div className="mb-4">
-        <label className="block mb-1 text-sm font-medium">Select VLAN</label>
-        <select
-          value={selectedVlanId || ""}
-          onChange={handleSelectChange}
-          className="w-full border rounded p-2 bg-gray-100"
-        >
-          <option value="" disabled>Select a VLAN</option>
-          {vlans.map((vlan) => (
-            <option key={vlan.vlanid} value={vlan.vlanid}>
-              {vlan.name} (ID: {vlan.vlanid})
-            </option>
-          ))}
-        </select>
-      </div>
+return (
+  <div className="w-1/3 mx-auto p-4 text-gray-900">
+    <div className="mb-4">
+      <label className="block mb-1 text-sm font-medium text-orange-500">Select VLAN</label>
+      <select
+        value={selectedVlanId || ""}
+        onChange={handleSelectChange}
+        className="w-full border rounded p-2 bg-gray-100 text-gray-900"
+      >
+        <option value="" disabled>Select a VLAN</option>
+        {vlans.map((vlan) => (
+          <option key={vlan.vlanid} value={vlan.vlanid}>
+            {vlan.name} (ID: {vlan.vlanid})
+          </option>
+        ))}
+      </select>
+    </div>
 
-      {selectedVlanId && (
-        <>
-          <div className="grid grid-cols-1 gap-4 mb-4">
-            <div>
-              <label className="block text-sm">VLAN ID</label>
-              <input
-                type="number"
-                name="vlanid"
-                value={formData.vlanid}
-                disabled
-                className="w-full border p-2 rounded bg-gray-100"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm">Name</label>
-              <input
-                type="text"
-                name="name"
-                value={formData.name || ""}
-                onChange={handleInputChange}
-                className="w-full border p-2 rounded bg-gray-100"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm">Description</label>
-              <input
-                type="text"
-                name="description"
-                value={formData.description || ""}
-                onChange={handleInputChange}
-                className="w-full border p-2 rounded bg-gray-100"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm">MAC Learning</label>
-              <select
-                name="mac_learning"
-                value={formData.mac_learning || "enabled"}
-                onChange={handleInputChange}
-                className="w-full border p-2 rounded bg-gray-100"
-              >
-                <option value="enabled">enabled</option>
-                <option value="disabled">disabled</option>
-              </select>
-            </div>
+    {selectedVlanId && (
+      <>
+        <div className="grid grid-cols-1 gap-4 mb-4">
+          <div>
+            <label className="block mb-1 text-sm font-medium text-orange-500">VLAN ID</label>
+            <input
+              type="number"
+              name="vlanid"
+              value={formData.vlanid}
+              disabled
+              className="w-full border p-2 rounded bg-gray-100 text-gray-900"
+            />
           </div>
 
           <div>
-  <label className="block text-sm text-orange-500">ifName</label>
-  <input
-    type="text"
-    name="ifname"
-    value={formData.ifname || ""}
-    onChange={handleInputChange}
-    className="w-full border p-2 rounded bg-gray-100"
-  />
-</div>
-
-<div>
-  <label className="block text-sm text-orange-500">Tagging Mode</label>
-  <select
-    name="tagging_mode"
-    value={formData.tagging_mode || ""}
-    onChange={handleInputChange}
-    className="w-full border p-2 rounded bg-gray-100 text-gray-900"
-  >
-    <option value="tagged">Tagged</option>
-    <option value="untagged">Untagged</option>
-  </select>
-</div>
-
-           
-
-
-
-          <div className="flex gap-2">
-            <button
-              onClick={handlePut}
-              className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-            >
-              PUT VLAN
-            </button>
-            <button
-              onClick={() => {
-                setSelectedVlanId(null);
-                setFormData({});
-              }}
-              className="bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300"
-            >
-              Cancel
-            </button>
+            <label className="block mb-1 text-sm font-medium text-orange-500">Name</label>
+            <input
+              type="text"
+              name="name"
+              value={formData.name || ""}
+              onChange={handleInputChange}
+              className="w-full border p-2 rounded bg-gray-100 text-gray-900"
+            />
           </div>
 
-          {status && (
-            <p className="mt-3 text-sm text-gray-600 italic">{status}</p>
-          )}
-        </>
-      )}
-    </div>
-  );
+          <div>
+            <label className="block mb-1 text-sm font-medium text-orange-500">Description</label>
+            <input
+              type="text"
+              name="description"
+              value={formData.description || ""}
+              onChange={handleInputChange}
+              className="w-full border p-2 rounded bg-gray-100 text-gray-900"
+            />
+          </div>
+
+          <div>
+            <label className="block mb-1 text-sm font-medium text-orange-500">MAC Learning</label>
+            <select
+              name="mac_learning"
+              value={formData.mac_learning || "enabled"}
+              onChange={handleInputChange}
+              className="w-full border p-2 rounded bg-gray-100 text-gray-900"
+            >
+              <option value="enabled">Enabled</option>
+              <option value="disabled">Disabled</option>
+            </select>
+          </div>
+
+          <div>
+            <label className="block mb-1 text-sm font-medium text-orange-500">ifName</label>
+            <input
+              type="text"
+              name="ifname"
+              value={formData.ifname || ""}
+              onChange={handleInputChange}
+              className="w-full border p-2 rounded bg-gray-100 text-gray-900"
+            />
+          </div>
+
+          <div>
+            <label className="block mb-1 text-sm font-medium text-orange-500">Tagging Mode</label>
+            <select
+              name="tagging_mode"
+              value={formData.tagging_mode || ""}
+              onChange={handleInputChange}
+              className="w-full border p-2 rounded bg-gray-100 text-gray-900"
+            >
+              <option value="tagged">Tagged</option>
+              <option value="untagged">Untagged</option>
+            </select>
+          </div>
+        </div>
+
+        <div className="flex gap-2">
+          <button
+            onClick={handlePut}
+            className="bg-orange-400 text-white px-4 py-2 rounded hover:bg-orange-500"
+          >
+            Put VLAN
+          </button>
+          <button
+            onClick={() => {
+              setSelectedVlanId(null);
+              setFormData({});
+              setOriginalData({});
+            }}
+            className="bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300"
+          >
+            Cancel
+          </button>
+        </div>
+
+        {status && (
+          <p className="mt-3 text-sm text-gray-600 italic">{status}</p>
+        )}
+      </>
+    )}
+  </div>
+);
 };
 
 export default PutVlan;
