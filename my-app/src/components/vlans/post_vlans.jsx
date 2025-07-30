@@ -46,13 +46,13 @@ const handleSubmit = async (e) => {
   }
 });
 
-    setMessage("✅ VLAN created successfully!");
+    setMessage(" VLAN created successfully!");
   } catch (error) {
     if (error.response) {
       console.error("Validation error:", error.response.data);
-      setMessage("❌ Error: " + error.response.data.detail);
+      setMessage(" Error: " + error.response.data.detail);
     } else {
-      setMessage("❌ Unknown error occurred.");
+      setMessage(" Unknown error occurred.");
       console.error(error);
     }
   }
@@ -74,7 +74,7 @@ const handleSubmit = async (e) => {
           value={vlanId}
           onChange={(e) => setVlanId(e.target.value)}
           required
-          className="w-full px-3 py-2 border rounded bg-gray-100"
+          className="w-full px-3 py-2 border rounded bg-gray-100 text-gray-900"
         />
         <input
           type="text"
@@ -82,19 +82,19 @@ const handleSubmit = async (e) => {
           value={name}
           onChange={(e) => setName(e.target.value)}
           required
-          className="w-full px-3 py-2 border rounded bg-gray-100"
+          className="w-full px-3 py-2 border rounded bg-gray-100 text-gray-900"
         />
         <input
           type="text"
           placeholder="Description (optional)"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          className="w-full px-3 py-2 border rounded bg-gray-100"
+          className="w-full px-3 py-2 border rounded bg-gray-100 text-gray-900"
         />
         <select
           value={macLearning}
           onChange={(e) => setMacLearning(e.target.value)}
-          className="w-full px-3 py-2 border rounded bg-gray-100 text-gray-900"
+          className="w-full px-3 py-2 border rounded bg-gray-100 text-gray-800"
         >
           <option value="enabled">MAC Learning: Enabled</option>
           <option value="disabled">MAC Learning: Disabled</option>
@@ -105,15 +105,15 @@ const handleSubmit = async (e) => {
           value={ifname}
           onChange={(e) => setifName(e.target.value)}
           required
-          className="w-full px-3 py-2 border rounded bg-gray-100"
+          className="w-full px-3 py-2 border rounded bg-gray-100 text-gray-900"
         />
         <select
           value={Tagging}
           onChange={(e) => setTagging(e.target.value)}
-          className="w-full px-3 py-2 border rounded bg-gray-100 text-gray-900"
+          className="w-full px-3 py-2 border rounded bg-gray-100 text-gray-800"
         >
-          <option value="Tagged">Tagging bit: Tagged</option>
-          <option value="Untagged">Tagging bit: Untagged</option>
+          <option value="tagged">Tagging bit: Tagged</option>
+          <option value="untagged">Tagging bit: Untagged</option>
         </select>
         <button
           type="submit"

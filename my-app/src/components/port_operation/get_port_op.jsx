@@ -43,31 +43,25 @@ const GetPortOp = () => {
 
       {showTable && (
         ports.length > 0 ? (
-          <div className="overflow-y-auto max-h-[300px] border border-gray-200 rounded shadow dark:border-gray-700 dark:text-white">
+          <div className="overflow-y-auto max-h-[300px] border border-gray-200 rounded shadow">
             <table className="w-full text-sm">
-              <thead className="bg-orange-100 text-orange-700 sticky top-0 dark:bg-orange-900 dark:text-orange-100">
+              <thead className="bg-orange-100 text-orange-700 sticky top-0 ">
                 <tr>
                   <th className="px-4 py-2 text-center">Index</th>
                   <th className="px-4 py-2 text-center">IfName</th>
                   <th className="px-4 py-2 text-center">Alias</th>
                   <th className="px-4 py-2 text-center">Admin Status</th>
                   <th className="px-4 py-2 text-center">Operation Status</th>
-                  <th className="px-4 py-2 text-center">Description</th>
                 </tr>
               </thead>
               <tbody className="text-gray-900 dark:text-white">
                 {ports.map((port, idx) => (
-                  <tr key={idx} className="border-t hover:bg-gray-50 dark:hover:bg-gray-800">
+                  <tr key={idx} className="border-t hover:bg-gray-50 text-gray-900">
                     <td className="px-4 py-2">{port.index}</td>
                     <td className="px-4 py-2">{port.ifname}</td>
                     <td className="px-4 py-2">{port.alias}</td>
                     <td className="px-4 py-2 capitalize">{port.admin_status}</td>
                     <td className="px-4 py-2 capitalize">{port.oper_status}</td>
-                    <td className="px-4 py-2">
-                      {port.description || (
-                        <span className="text-gray-400 dark:text-gray-500">—</span>
-                      )}
-                    </td>
                   </tr>
                 ))}
               </tbody>

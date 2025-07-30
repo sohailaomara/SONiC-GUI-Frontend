@@ -20,20 +20,20 @@ const fetchVlans = async () => {
     const vlanMemberList =
       response.data["sonic-vlan:sonic-vlan"]?.VLAN_MEMBER?.VLAN_MEMBER_LIST || [];
 
-    // Create a map from VLAN name to member fields
+    
     const memberMap = {};
     vlanMemberList.forEach((member) => {
-      // Only assign ifname and tagging_mode to simplify (ignore multiple members)
+      
       memberMap[member.name] = {
         ifname: member.ifname,
         tagging_mode: member.tagging_mode,
       };
     });
 
-    // Merge member data into each VLAN
+   
     const combinedList = vlanList.map((vlan) => ({
       ...vlan,
-      ...memberMap[vlan.name], // Adds ifname & tagging_mode if available
+      ...memberMap[vlan.name], 
     }));
 
     setVlans(combinedList);
@@ -106,11 +106,11 @@ const handlePatch = async () => {
         "Content-Type": "application/json",
       },
     });
-    setStatus("✅ VLAN patched successfully.");
+    setStatus(" VLAN patched successfully.");
     fetchVlans();
   } catch (error) {
     console.error("Patch error:", error.response?.data || error);
-    setStatus("❌ Error: " + (error.response?.data?.detail || "Unknown error"));
+    setStatus(" Error: " + (error.response?.data?.detail || "Unknown error"));
   }
 };
 
