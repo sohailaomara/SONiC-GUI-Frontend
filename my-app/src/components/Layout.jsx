@@ -31,7 +31,7 @@ export default function Layout({ children }) {
     <div className="flex items-center justify-between mb-6">
           <button
         onClick={() => setSidebarOpen(!sidebarOpen)}
-        className="mx-auto mb-2 block p-2 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-800"
+        className="mx-auto mb-2 block p-2 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-900 self-start"
   >
     {sidebarOpen ? <X className="w-6 h-6 text-grey-700" /> : <Menu className="w-5 h-5" />}
   </button>

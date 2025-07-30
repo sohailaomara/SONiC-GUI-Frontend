@@ -56,14 +56,14 @@ const handleSubmit = async (e) => {
     const detail = error.response.data?.detail;
 
     if (status === 500 && Tagging === "untagged") {
-      setMessage("❗ Error: This Ethernet port already has an untagged VLAN. Only one untagged VLAN is allowed per port.");
+      setMessage("Error: This Ethernet port already has an untagged VLAN. Only one untagged VLAN is allowed per port.");
     } else if (detail) {
-      setMessage("❗ Error: " + detail);
+      setMessage("Error: " + detail);
     } else {
-      setMessage("❗ Error: " + JSON.stringify(error.response.data));
+      setMessage("Error: " + JSON.stringify(error.response.data));
     }
   } else {
-    setMessage("❗ Unknown error occurred. Please check network or console.");
+    setMessage("Unknown error occurred. Please check network or console.");
     console.error(error);
   }
 }

@@ -71,7 +71,7 @@ export default function DeleteVlans() {
           </thead>
           <tbody>
             {vlans.map((vlan) => (
-              <tr key={vlan.vlanid} className="border-t hover:bg-gray-50 text-gray-800">
+              <tr key={vlan.vlanid} className="border-t hover:bg-gray-50 text-gray-900">
                 <td className="px-4 py-2">{vlan.vlanid}</td>
                 <td className="px-4 py-2">{vlan.name || '—'}</td>
                 <td className="px-4 py-2">
