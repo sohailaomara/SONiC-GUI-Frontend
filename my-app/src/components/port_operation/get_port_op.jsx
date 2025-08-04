@@ -37,12 +37,12 @@ const GetPortOp = () => {
         {loading
           ? "Loading..."
           : showTable
-          ? "Collapse Port-Op Data"
-          : "Get Port-Op Data"}
+            ? "Collapse Port-Op Data"
+            : "Get Port-Op Data"}
       </button>
 
-      {showTable && (
-        ports.length > 0 ? (
+      {showTable &&
+        (ports.length > 0 ? (
           <div className="overflow-y-auto max-h-[300px] border border-gray-200 rounded shadow">
             <table className="w-full text-sm">
               <thead className="bg-orange-100 text-orange-700 sticky top-0 ">
@@ -56,11 +56,16 @@ const GetPortOp = () => {
               </thead>
               <tbody className="text-gray-900 dark:text-white">
                 {ports.map((port, idx) => (
-                  <tr key={idx} className="border-t hover:bg-gray-50 text-gray-900">
+                  <tr
+                    key={idx}
+                    className="border-t hover:bg-gray-50 text-gray-900"
+                  >
                     <td className="px-4 py-2">{port.index}</td>
                     <td className="px-4 py-2">{port.ifname}</td>
                     <td className="px-4 py-2">{port.alias}</td>
-                    <td className="px-4 py-2 capitalize">{port.admin_status}</td>
+                    <td className="px-4 py-2 capitalize">
+                      {port.admin_status}
+                    </td>
                     <td className="px-4 py-2 capitalize">{port.oper_status}</td>
                   </tr>
                 ))}
@@ -73,8 +78,7 @@ const GetPortOp = () => {
               No Port-Op data found yet.
             </p>
           )
-        )
-      )}
+        ))}
     </div>
   );
 };

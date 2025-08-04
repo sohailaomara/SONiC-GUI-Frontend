@@ -1,14 +1,13 @@
-import Layout from '../components/Layout';
-import PostVlan from '../components/vlans/post_vlans';
-import PatchVlan from '../components/vlans/patch_vlans';
-import GetVlans from '../components/vlans/get_vlans';
+import Layout from "../components/Layout";
+import PostVlan from "../components/vlans/post_vlans";
+import PatchVlan from "../components/vlans/patch_vlans";
+import GetVlans from "../components/vlans/get_vlans";
 import PutVlan from "../components/vlans/put_vlans";
-import DeleteVlans from '../components/vlans/delete_vlans';
-import { useState } from 'react';
-import { AppWindow } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
-import { ChevronDown, ChevronRight } from 'lucide-react';
-
+import DeleteVlans from "../components/vlans/delete_vlans";
+import { useState } from "react";
+import { AppWindow } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { ChevronDown, ChevronRight } from "lucide-react";
 
 export default function VlanPage() {
   const navigate = useNavigate();
@@ -17,29 +16,43 @@ export default function VlanPage() {
     <Layout>
       <div className="flex justify-end mb-4">
         <button
-          onClick={() => navigate('/home')}
+          onClick={() => navigate("/home")}
           className="text-sm px-4 py-2 bg-orange-600 hover:bg-orange-700 text-white rounded"
         >
           ← Back to Home
         </button>
       </div>
 
-      <Section title="Create VLAN" icon={<AppWindow className="text-orange-500" />}>
+      <Section
+        title="Create VLAN"
+        icon={<AppWindow className="text-orange-500" />}
+      >
         <PostVlan />
       </Section>
-      <Section title="Patch VLAN" icon={<AppWindow className="text-orange-500" />}>
+      <Section
+        title="Patch VLAN"
+        icon={<AppWindow className="text-orange-500" />}
+      >
         <PatchVlan />
       </Section>
-      <Section title="VLAN Data" icon={<AppWindow className="text-orange-500" />}>
+      <Section
+        title="VLAN Data"
+        icon={<AppWindow className="text-orange-500" />}
+      >
         <GetVlans />
       </Section>
-      <Section title="Put VLAN" icon={<AppWindow className="text-orange-500" />}>
+      <Section
+        title="Put VLAN"
+        icon={<AppWindow className="text-orange-500" />}
+      >
         <PutVlan />
       </Section>
-        <Section title="Delete VLAN" icon={<AppWindow className="text-orange-500" />}>
-            <DeleteVlans />
+      <Section
+        title="Delete VLAN"
+        icon={<AppWindow className="text-orange-500" />}
+      >
+        <DeleteVlans />
       </Section>
-
     </Layout>
   );
 }
@@ -61,7 +74,11 @@ function Section({ title, icon, children }) {
           {icon}
           <h2 className="text-md font-semibold text-gray-900">{title}</h2>
         </div>
-        {isOpen ? <ChevronDown className="text-gray-600" /> : <ChevronRight className="text-gray-600" />}
+        {isOpen ? (
+          <ChevronDown className="text-gray-600" />
+        ) : (
+          <ChevronRight className="text-gray-600" />
+        )}
       </button>
 
       {isOpen && (

@@ -28,7 +28,7 @@ const GetVlans = () => {
   };
 
   return (
-    <div className="w-full text-gray-800" >
+    <div className="w-full text-gray-800">
       <button
         onClick={getVlan}
         className="bg-orange-400 hover:bg-orange-500 text-white px-5 py-2 rounded shadow mb-4"
@@ -36,12 +36,12 @@ const GetVlans = () => {
         {loading
           ? "Loading..."
           : showTable
-          ? "Collapse VLAN Data"
-          : "Get VLAN Data"}
+            ? "Collapse VLAN Data"
+            : "Get VLAN Data"}
       </button>
 
-      {showTable && (
-        vlans.length > 0 ? (
+      {showTable &&
+        (vlans.length > 0 ? (
           <>
             <div className="overflow-y-auto max-h-[320px] border border-gray-200 rounded shadow ">
               <table className="w-full text-sm">
@@ -55,17 +55,12 @@ const GetVlans = () => {
                 </thead>
                 <tbody>
                   {vlans.map((vlan, index) => (
-                    <tr
-                      key={index}
-                      className="border-t hover:bg-gray-50 "
-                    >
+                    <tr key={index} className="border-t hover:bg-gray-50 ">
                       <td className="px-4 py-2">{vlan.vlanid}</td>
                       <td className="px-4 py-2">{vlan.name}</td>
                       <td className="px-4 py-2">
                         {vlan.description || (
-                          <span className="text-gray-400 ">
-                            —
-                          </span>
+                          <span className="text-gray-400 ">—</span>
                         )}
                       </td>
                       <td className="px-4 py-2 capitalize">
@@ -78,13 +73,8 @@ const GetVlans = () => {
             </div>
           </>
         ) : (
-          !loading && (
-            <p className="text-gray-500  text-sm">
-              No VLANs found.
-            </p>
-          )
-        )
-      )}
+          !loading && <p className="text-gray-500  text-sm">No VLANs found.</p>
+        ))}
     </div>
   );
 };

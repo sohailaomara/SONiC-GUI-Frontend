@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import { AuthLayout } from '../components/auth/auth-layout';
-import { Button } from '../components/auth/button';
-import { Field, Label } from '../components/auth/fieldset';
-import { Heading } from '../components/auth/heading';
-import { Input } from '../components/auth/input';
-import { Strong, Text, TextLink } from '../components/auth/text';
-import Logo from '../assets/logo.png';
+import React, { useState } from "react";
+import { AuthLayout } from "../components/auth/auth-layout";
+import { Button } from "../components/auth/button";
+import { Field, Label } from "../components/auth/fieldset";
+import { Heading } from "../components/auth/heading";
+import { Input } from "../components/auth/input";
+import { Strong, Text, TextLink } from "../components/auth/text";
+import Logo from "../assets/logo.png";
 
 const Login_form = ({ handleLogin }) => {
   const [formData, setFormData] = useState({
@@ -79,7 +79,10 @@ const Login_form = ({ handleLogin }) => {
           <span className="text-s text-red-500 -mt-4">{errors.general}</span>
         )}
 
-        <Button type="submit" className="w-full bg-orange-500 text-white hover:bg-orange-600">
+        <Button
+          type="submit"
+          className="w-full bg-orange-500 text-white hover:bg-orange-600"
+        >
           Login
         </Button>
 
@@ -95,7 +98,6 @@ const Login_form = ({ handleLogin }) => {
 };
 
 export default Login_form;
-
 
 /*
           <CheckboxField>

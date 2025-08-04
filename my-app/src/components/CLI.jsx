@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import axios from 'axios';
+import { useState } from "react";
+import axios from "axios";
 
 export default function CLI() {
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState("");
   const [output, setOutput] = useState([]);
 
   const handleCommand = async (e) => {
@@ -10,14 +10,16 @@ export default function CLI() {
     if (!input.trim()) return;
 
     const command = input;
-    setInput('');
+    setInput("");
     setOutput((prev) => [...prev, `$ ${command}`]);
 
     try {
-      const response = await axios.post('http://localhost:8000/cli', { command });
+      const response = await axios.post("http://localhost:8000/cli", {
+        command,
+      });
       setOutput((prev) => [...prev, response.data.output]);
     } catch (error) {
-      setOutput((prev) => [...prev, 'Error: Command failed']);
+      setOutput((prev) => [...prev, "Error: Command failed"]);
     }
   };
 

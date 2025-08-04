@@ -12,69 +12,65 @@ const PostVlan = () => {
   const [message, setMessage] = useState("");
   const [Tagging, setTagging] = useState("tagged");
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  setLoading(true);
-  setMessage("");
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setMessage("");
 
-  const payload = {
-  "sonic-vlan:VLAN": {
-    "VLAN_LIST": [
-      {
-        "name": name,
-        "vlanid": parseInt(vlanId),
-        "description": description,
-        "mac_learning": macLearning
+    const payload = {
+      "sonic-vlan:VLAN": {
+        VLAN_LIST: [
+          {
+            name: name,
+            vlanid: parseInt(vlanId),
+            description: description,
+            mac_learning: macLearning,
+          },
+        ],
+      },
+      "sonic-vlan:VLAN_MEMBER": {
+        VLAN_MEMBER_LIST: [
+          {
+            name: name,
+            ifname: ifname,
+            tagging_mode: Tagging,
+          },
+        ],
+      },
+    };
+
+    try {
+      const response = await api.post("/vlans/add_vlans", payload, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      setMessage(" VLAN created successfully!");
+    } catch (error) {
+      setLoading(false);
+
+      if (error.response) {
+        const status = error.response.status;
+        const detail = error.response.data?.detail;
+
+        if (status === 500 && Tagging === "untagged") {
+          setMessage(
+            "Error: This Ethernet port already has an untagged VLAN. Only one untagged VLAN is allowed per port.",
+          );
+        } else if (detail) {
+          setMessage("Error: " + detail);
+        } else {
+          setMessage("Error: " + JSON.stringify(error.response.data));
+        }
+      } else {
+        setMessage("Unknown error occurred. Please check network or console.");
+        console.error(error);
       }
-    ]
-  },
-  "sonic-vlan:VLAN_MEMBER": {
-    "VLAN_MEMBER_LIST": [
-      {
-        "name": name,
-        "ifname": ifname,
-        "tagging_mode": Tagging
-      }
-    ]
-  }
-};
-
-  try {
-    // eslint-disable-next-line no-unused-vars
-    const response = await api.post("/vlans/add_vlans", payload, {
-  headers: {
-    "Content-Type": "application/json"
-  }
-});
-
-    setMessage(" VLAN created successfully!");
-  } catch (error) {
-  setLoading(false);
-
-  if (error.response) {
-    const status = error.response.status;
-    const detail = error.response.data?.detail;
-
-    if (status === 500 && Tagging === "untagged") {
-      setMessage("Error: This Ethernet port already has an untagged VLAN. Only one untagged VLAN is allowed per port.");
-    } else if (detail) {
-      setMessage("Error: " + detail);
-    } else {
-      setMessage("Error: " + JSON.stringify(error.response.data));
     }
-  } else {
-    setMessage("Unknown error occurred. Please check network or console.");
-    console.error(error);
-  }
-}
 
-
-  setLoading(false);
-};
-
-
-
-
+    setLoading(false);
+  };
 
   return (
     <div className="w-full p-4 border rounded shadow">

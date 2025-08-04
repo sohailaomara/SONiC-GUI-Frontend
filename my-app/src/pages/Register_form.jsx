@@ -1,28 +1,27 @@
-import React, { useState } from 'react';
-import { AuthLayout } from '../components/auth/auth-layout';
-import { Button } from '../components/auth/button';
-import { Checkbox, CheckboxField } from '../components/auth/checkbox';
-import { Field, Label } from '../components/auth/fieldset';
-import { Heading } from '../components/auth/heading';
-import { Input } from '../components/auth/input';
-import { Select } from '../components/auth/select';
-import { Strong, Text, TextLink } from '../components/auth/text';
-import Logo from '../assets/logo.png';
-import { Link } from 'react-router-dom';
+import React, { useState } from "react";
+import { AuthLayout } from "../components/auth/auth-layout";
+import { Button } from "../components/auth/button";
+import { Checkbox, CheckboxField } from "../components/auth/checkbox";
+import { Field, Label } from "../components/auth/fieldset";
+import { Heading } from "../components/auth/heading";
+import { Input } from "../components/auth/input";
+import { Select } from "../components/auth/select";
+import { Strong, Text, TextLink } from "../components/auth/text";
+import Logo from "../assets/logo.png";
+import { Link } from "react-router-dom";
 
 const Register = ({ handleSignUp }) => {
   const [formData, setFormData] = useState({
-  username: "",
-  email: "",
-  password: "",
-});
+    username: "",
+    email: "",
+    password: "",
+  });
 
-const [errors, setErrors] = useState({
-  username: "",
-  email: "",
-  password: "",
-});
-
+  const [errors, setErrors] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
 
   const handleChange = (e) => {
     setFormData((prev) => ({
@@ -38,7 +37,7 @@ const [errors, setErrors] = useState({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    handleSignUp(formData,setErrors);
+    handleSignUp(formData, setErrors);
   };
 
   return (
@@ -71,10 +70,9 @@ const [errors, setErrors] = useState({
             required
           />
           {errors.username && (
-        <span className="text-s text-red-500 mt-1">{errors.username}</span>
-        )}
+            <span className="text-s text-red-500 mt-1">{errors.username}</span>
+          )}
         </Field>
-        
 
         <Field>
           <Label>Password</Label>
@@ -87,12 +85,14 @@ const [errors, setErrors] = useState({
             required
           />
           {errors.password && (
-        <span className="text-s text-red-500 mt-1">{errors.password}</span>
-        )}
+            <span className="text-s text-red-500 mt-1">{errors.password}</span>
+          )}
         </Field>
-        
 
-        <Button type="submit" className="w-full bg-orange-500 text-white hover:bg-orange-600">
+        <Button
+          type="submit"
+          className="w-full bg-orange-500 text-white hover:bg-orange-600"
+        >
           Create account
         </Button>
 
