@@ -1,30 +1,54 @@
-import { useState } from "react";
-import axios from "axios";
+import { useState, useEffect, useRef } from "react";
 
 export default function CLI() {
   const [input, setInput] = useState("");
   const [output, setOutput] = useState([]);
+  const socketRef = useRef(null);
+  const containerRef = useRef(null);
 
-  const handleCommand = async (e) => {
+  useEffect(() => {
+    // Replace with your backend host if needed
+    const socket = new WebSocket("ws://localhost:8000/ws/ssh");
+    socketRef.current = socket;
+
+    socket.onmessage = (event) => {
+      setOutput((prev) => [...prev, event.data]);
+    };
+
+    socket.onerror = (err) => {
+      setOutput((prev) => [...prev, "Error: WebSocket connection failed"]);
+    };
+
+    socket.onclose = () => {
+      setOutput((prev) => [...prev, "** Connection closed **"]);
+    };
+
+    return () => {
+      socket.close();
+    };
+  }, []);
+
+  useEffect(() => {
+    // Auto-scroll to bottom
+    if (containerRef.current) {
+      containerRef.current.scrollTop = containerRef.current.scrollHeight;
+    }
+  }, [output]);
+
+  const handleCommand = (e) => {
     e.preventDefault();
     if (!input.trim()) return;
 
-    const command = input;
+    setOutput((prev) => [...prev, `$ ${input}`]);
+    socketRef.current?.send(input);
     setInput("");
-    setOutput((prev) => [...prev, `$ ${command}`]);
-
-    try {
-      const response = await axios.post("http://localhost:8000/cli", {
-        command,
-      });
-      setOutput((prev) => [...prev, response.data.output]);
-    } catch (error) {
-      setOutput((prev) => [...prev, "Error: Command failed"]);
-    }
   };
 
   return (
-    <div className="bg-black text-green-500 p-4 rounded-lg font-mono h-[500px] overflow-y-auto shadow-md">
+    <div
+      className="bg-black text-green-500 p-4 rounded-lg font-mono h-[500px] overflow-y-auto shadow-md"
+      ref={containerRef}
+    >
       {output.map((line, index) => (
         <div key={index}>{line}</div>
       ))}
