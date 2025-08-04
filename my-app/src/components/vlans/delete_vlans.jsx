@@ -49,18 +49,20 @@ export default function DeleteVlans() {
   }, []);
 
   return (
-    <div className="overflow-y-auto max-h-[320px] border border-gray-200 rounded shadow p-4">
-      <button
-        onClick={handleDeleteAll}
-        className="bg-orange-400 hover:bg-orange-500 text-white px-4 py-2 rounded mb-3"
-      >
-        Delete All VLANs
-      </button>
-      {loading ? (
-        <p className="text-sm text-gray-500">Loading VLANs...</p>
-      ) : vlans.length === 0 ? (
-        <p className="text-sm text-gray-500">No VLANs found.</p>
-      ) : (
+      <div className="border border-gray-200 rounded shadow p-4">
+    <button
+      onClick={handleDeleteAll}
+      className="bg-orange-400 hover:bg-orange-500 text-white px-4 py-2 rounded mb-3"
+    >
+      Delete All VLANs
+    </button>
+
+    {loading ? (
+      <p className="text-sm text-gray-500">Loading VLANs...</p>
+    ) : vlans.length === 0 ? (
+      <p className="text-sm text-gray-500">No VLANs found.</p>
+    ) : (
+      <div className="overflow-y-auto max-h-[300px] rounded border border-gray-100">
         <table className="w-full text-sm">
           <thead className="bg-orange-200 text-orange-800 sticky top-0">
             <tr>
@@ -86,7 +88,8 @@ export default function DeleteVlans() {
             ))}
           </tbody>
         </table>
-      )}
-    </div>
+      </div>
+    )}
+  </div>
   );
 }
