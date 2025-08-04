@@ -6,5 +6,13 @@
     "javascript": "javascript",
     "javascriptreact": "javascriptreact",
     "typescriptreact": "typescriptreact"
-  }
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "always"
+  },
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact"
+  ],
+  "eslint.experimental.useFlatConfig": true
 }
