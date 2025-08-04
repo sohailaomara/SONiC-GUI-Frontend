@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Terminal } from 'lucide-react';
+import CLI from './CLI';
 
 export default function Layout({ children }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [time, setTime] = useState(new Date());
   const username = "User";
   const navigate = useNavigate();
+  const [cliOpen, setCliOpen] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => setTime(new Date()), 1000);
@@ -62,17 +64,41 @@ export default function Layout({ children }) {
               <p className="text-sm text-gray-500">{time.toLocaleTimeString()}</p>
             </div>
           </div>
-
-          <button
-            onClick={handleSignOut}
-            className="text-sm px-4 py-2 bg-orange-600 hover:bg-orange-800 text-white rounded-lg shadow"
-          >
-            Sign Out
-          </button>
+          <div className="flex gap-4">
+            <button
+              onClick={() => setCliOpen(true)}
+              className="text-sm px-4 py-2 bg-gray-800 hover:bg-gray-700 text-white rounded-lg shadow"
+            >
+              <Terminal className="w-4 h-4" />
+            </button>
+            <button
+              onClick={handleSignOut}
+              className="text-sm px-4 py-2 bg-orange-600 hover:bg-orange-800 text-white rounded-lg shadow"
+            >
+              Sign Out
+            </button>
+          </div>
         </header>
 
         <main className="p-8">{children}</main>
       </div>
+      {cliOpen && (
+      <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
+        <div className="bg-white rounded-xl shadow-xl w-[95%] md:w-[900px] max-h-[80vh] overflow-hidden flex flex-col">
+          {/* Header */}
+          <div className="flex justify-between items-center bg-gray-800 text-white px-4 py-2">
+            <h2 className="text-lg font-semibold">CLI Terminal</h2>
+            <button onClick={() => setCliOpen(false)} className="text-red-400">
+              ✕
+            </button>
+          </div>
+          {/* CLI Content */}
+          <div className="p-4 overflow-y-auto flex-1 bg-black">
+            <CLI />
+          </div>
+        </div>
+      </div>
+    )}
     </div>
   );
 }
