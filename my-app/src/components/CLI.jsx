@@ -45,12 +45,12 @@ export default function CLI() {
   return (
     <div
       className="bg-black text-green-500 font-mono text-sm p-4 rounded-md shadow-md"
-      style={{ width: '800px', height: '900px' }}
+      style={{ width: "800px", height: "900px" }}
     >
       <div
         ref={containerRef}
         className="overflow-y-auto w-full h-full whitespace-pre"
-        style={{ maxHeight: '500px', overflowX: 'auto' }}
+        style={{ maxHeight: "500px", overflowX: "auto" }}
       >
         {output.map((line, index) => (
           <div key={index}>{line}</div>
