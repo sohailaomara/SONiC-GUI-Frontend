@@ -5,6 +5,7 @@ import Register from "./pages/Register";
 import PrivateRoute from "./components/auth/PrivateRoute";
 import HomePage from "./pages/HomePage";
 import Vlanpage from "./pages/Vlanpage";
+import PortOps from "./pages/PortOps";
 
 function App() {
   return (
@@ -46,6 +47,7 @@ function App() {
         }
       />
       <Route path="/vlan" element={<Vlanpage />} />
+      <Route path="/portops" element={<PortOps />} />
     </Routes>
   );
 }

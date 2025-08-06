@@ -7,7 +7,6 @@ export default function CLI() {
   const containerRef = useRef(null);
 
   useEffect(() => {
-    // Replace with your backend host if needed
     const socket = new WebSocket("ws://localhost:8000/ws/ssh");
     socketRef.current = socket;
 
@@ -29,7 +28,6 @@ export default function CLI() {
   }, []);
 
   useEffect(() => {
-    // Auto-scroll to bottom
     if (containerRef.current) {
       containerRef.current.scrollTop = containerRef.current.scrollHeight;
     }
@@ -46,12 +44,18 @@ export default function CLI() {
 
   return (
     <div
-      className="bg-black text-green-500 p-4 rounded-lg font-mono h-[500px] overflow-y-auto shadow-md"
-      ref={containerRef}
+      className="bg-black text-green-500 font-mono text-sm p-4 rounded-md shadow-md"
+      style={{ width: '800px', height: '900px' }}
     >
-      {output.map((line, index) => (
-        <div key={index}>{line}</div>
-      ))}
+      <div
+        ref={containerRef}
+        className="overflow-y-auto w-full h-full whitespace-pre"
+        style={{ maxHeight: '500px', overflowX: 'auto' }}
+      >
+        {output.map((line, index) => (
+          <div key={index}>{line}</div>
+        ))}
+      </div>
       <form onSubmit={handleCommand} className="flex mt-2">
         <span className="mr-2 text-white">$</span>
         <input

@@ -59,6 +59,13 @@ export default function Layout({ children }) {
           >
             VLAN
           </Link>
+                    <Link
+            to="/portops"
+            onClick={() => setSidebarOpen(false)}
+            className="text-orange-500 font-medium hover:text-orange-600"
+          >
+            PortOps
+          </Link>
         </nav>
       </div>
 
