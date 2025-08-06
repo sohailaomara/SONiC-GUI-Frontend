@@ -5,11 +5,7 @@ import { useState } from "react";
 import { ChevronDown, ChevronRight } from "lucide-react";
 
 export default function HomePage() {
-  return (
-    <Layout>
-
-    </Layout>
-  );
+  return <Layout></Layout>;
 }
 
 function Section({ title, icon, children }) {
