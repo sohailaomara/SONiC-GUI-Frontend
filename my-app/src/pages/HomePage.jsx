@@ -7,12 +7,7 @@ import { ChevronDown, ChevronRight } from "lucide-react";
 export default function HomePage() {
   return (
     <Layout>
-      <Section
-        title="Port Operation"
-        icon={<AppWindow className="text-orange-500" />}
-      >
-        <PortOp />
-      </Section>
+
     </Layout>
   );
 }
