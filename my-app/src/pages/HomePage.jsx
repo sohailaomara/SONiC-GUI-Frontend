@@ -2,10 +2,54 @@ import Layout from "../components/Layout";
 import { AppWindow } from "lucide-react";
 import PortOp from "../components/port_operation/get_port_op";
 import { useState } from "react";
-import { ChevronDown, ChevronRight } from "lucide-react";
+import {
+  ChevronDown,
+  ChevronRight,
+  Activity,
+  Settings,
+  Info,
+  Eye,
+} from "lucide-react";
+import OperationalStatus from "../components/status_widgets/OperationalStatus";
+import AdminStatus from "../components/status_widgets/AdminStatus";
+import InterfaceDesc from "../components/status_widgets/InterfaceDesc";
+import InterfaceStatus from "../components/status_widgets/InterfaceStatus";
 
 export default function HomePage() {
-  return <Layout></Layout>;
+  return (
+    <Layout>
+      <div className="p-6 space-y-4">
+        <div className="max-w-lg space-y-4">
+          {" "}
+          {/* CONTAINER ADDED */}
+          <Section
+            title="Operational Status"
+            icon={<Activity className="text-orange-500" />}
+          >
+            <OperationalStatus />
+          </Section>
+          <Section
+            title="Admin Status"
+            icon={<Settings className="text-orange-500" />}
+          >
+            <AdminStatus />
+          </Section>
+          <Section
+            title="Interface Status"
+            icon={<Eye className="text-orange-500" />}
+          >
+            <InterfaceStatus />
+          </Section>
+          <Section
+            title="Interface Descriptions"
+            icon={<Info className="text-orange-500" />}
+          >
+            <InterfaceDesc />
+          </Section>
+        </div>
+      </div>
+    </Layout>
+  );
 }
 
 function Section({ title, icon, children }) {
