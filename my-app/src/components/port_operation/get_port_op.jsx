@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import api from "../../api";
 
+
+
 const GetPortOp = () => {
   const [ports, setPorts] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -63,10 +65,28 @@ const GetPortOp = () => {
                     <td className="px-4 py-2">{port.index}</td>
                     <td className="px-4 py-2">{port.ifname}</td>
                     <td className="px-4 py-2">{port.alias}</td>
-                    <td className="px-4 py-2 capitalize">
+                    {/* <td className="px-4 py-2 capitalize">
                       {port.admin_status}
                     </td>
-                    <td className="px-4 py-2 capitalize">{port.oper_status}</td>
+                    <td className="px-4 py-2 capitalize">{port.oper_status}</td> */}
+                    {/* Admin Status Column */}
+<td className="px-4 py-2 capitalize text-center">
+  {port.admin_status === "up" ? (
+    <span className="text-green-600 font-semibold text-lg">Up ↑</span>
+  ) : (
+    <span className="text-red-600 font-semibold text-lg">Down ↓</span>
+  )}
+</td>
+
+{/* Operational Status Column */}
+<td className="px-4 py-2 capitalize text-center">
+  {port.oper_status === "up" ? (
+    <span className="text-green-600 font-semibold text-lg">Up ↑</span>
+  ) : (
+    <span className="text-red-600 font-semibold text-lg">Down ↓</span>
+  )}
+</td>
+
                   </tr>
                 ))}
               </tbody>
