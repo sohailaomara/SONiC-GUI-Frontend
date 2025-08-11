@@ -14,7 +14,6 @@ export default function SpeedGauge() {
         const res = await fetch("http://localhost:8000/portOp/status-summary");
         const data = await res.json();
 
-        // Example: use the first port's speed
         if (data.ports?.length > 0) {
           setSpeed(Number(data.ports[0].speed) || 0);
         }
@@ -28,7 +27,7 @@ export default function SpeedGauge() {
     return () => clearInterval(interval);
   }, []);
 
-  const maxSpeed = 1000; // adjust if needed
+  const maxSpeed = 40000;
   const percent = Math.min(speed / maxSpeed, 1);
 
   const getColor = () => {
@@ -39,7 +38,7 @@ export default function SpeedGauge() {
 
   return (
     <div className="w-64 p-6 bg-white rounded-2xl shadow-lg flex flex-col items-center">
-      <h2 className="text-lg font-semibold text-gray-800 mb-4">Speed</h2>
+      <h2 className="text-xl font-semibold text-gray-800 mb-4">Speed</h2>
       <div className="w-40 h-40">
         <CircularProgressbarWithChildren
           value={percent * 100}

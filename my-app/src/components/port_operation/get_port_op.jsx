@@ -25,7 +25,7 @@ const GetPortOp = () => {
       setLoading(false);
     }
 
-    setShowTable(!showTable); // Toggle visibility
+    setShowTable(!showTable);
   };
 
   return (
@@ -60,22 +60,21 @@ const GetPortOp = () => {
                     key={idx}
                     className="border-t hover:bg-gray-50 text-gray-900"
                   >
-                    <td className="px-4 py-2">{port.index}</td>
-                    <td className="px-4 py-2">{port.ifname}</td>
-                    <td className="px-4 py-2">{port.alias}</td>
-                    {/* <td className="px-4 py-2 capitalize">
-                      {port.admin_status}
+                    <td className="px-4 py-2font-semibold text-sm">
+                      {port.index}
                     </td>
-                    <td className="px-4 py-2 capitalize">{port.oper_status}</td> */}
-                    {/* Admin Status Column */}
+                    <td className="px-4 py-2font-semibold text-sm">
+                      {port.ifname}
+                    </td>
+                    <td className="px-4 py-2 semibold text-sm">{port.alias}</td>
                     <td className="px-4 py-2 capitalize text-center">
                       {port.admin_status === "up" ? (
-                        <span className="text-green-600 font-semibold text-lg">
-                          Up ↑
+                        <span className="text-green-600 font-semibold text-sm">
+                          ↑ Up
                         </span>
                       ) : (
-                        <span className="text-red-600 font-semibold text-lg">
-                          Down ↓
+                        <span className="text-red-600 font-semibold text-sm">
+                          ↓ Down
                         </span>
                       )}
                     </td>
@@ -83,12 +82,12 @@ const GetPortOp = () => {
                     {/* Operational Status Column */}
                     <td className="px-4 py-2 capitalize text-center">
                       {port.oper_status === "up" ? (
-                        <span className="text-green-600 font-semibold text-lg">
-                          Up ↑
+                        <span className="text-green-600 font-semibold text-sm">
+                          ↑ Up
                         </span>
                       ) : (
-                        <span className="text-red-600 font-semibold text-lg">
-                          Down ↓
+                        <span className="text-red-600 font-semibold text-sm">
+                          ↓ Down
                         </span>
                       )}
                     </td>
