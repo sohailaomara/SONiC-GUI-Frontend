@@ -6,30 +6,36 @@ export default function AdminStatus() {
   const [searchTerm, setSearchTerm] = useState("");
   const [filter, setFilter] = useState("All");
 
-  const useMockData = true;
+  const useMockData = false;
+
+  const mapAdminStatus = (status) => {
+    if (!status) return "";
+    return status.toLowerCase() === "up"
+      ? "Enabled"
+      : status.toLowerCase() === "down"
+        ? "Disabled"
+        : status;
+  };
 
   useEffect(() => {
     const fetchInterfaces = async () => {
       if (useMockData) {
-        const mock = {
-          Ethernet0: "Enabled",
-          Ethernet4: "Disabled",
-          Ethernet8: "Enabled",
-          Ethernet12: "Disabled",
-        };
-
-        // Convert the object to array of { Interface, Status }
-        const mockArray = Object.entries(mock).map(([key, value]) => ({
-          Interface: key,
-          Status: value,
-        }));
-
+        const mockArray = [
+          { ifname: "Ethernet0", admin_status: "Enabled" },
+          { ifname: "Ethernet4", admin_status: "Disabled" },
+          { ifname: "Ethernet8", admin_status: "Enabled" },
+          { ifname: "Ethernet12", admin_status: "Disabled" },
+        ];
         setInterfaces(mockArray);
         return;
       }
       try {
-        const response = await api.get("/get/interfaces/admin-status");
-        setInterfaces(response.data);
+        const response = await api.get("/portOp/status-summary");
+        const mapped = (response.data.ports || []).map((iface) => ({
+          ...iface,
+          admin_status: mapAdminStatus(iface.admin_status),
+        }));
+        setInterfaces(mapped);
       } catch (error) {
         console.error("Error fetching admin status:", error);
       }
@@ -38,11 +44,12 @@ export default function AdminStatus() {
   }, []);
 
   const filteredInterfaces = interfaces.filter((iface) => {
-    const matchesSearch = iface.Interface.toLowerCase().includes(
-      searchTerm.toLowerCase(),
-    );
+    const matchesSearch = iface.ifname
+      ?.toLowerCase()
+      .includes(searchTerm.toLowerCase());
     const matchesFilter =
-      filter === "All" || iface.Status.toUpperCase() === filter.toUpperCase();
+      filter === "All" ||
+      iface.admin_status?.toUpperCase() === filter.toUpperCase();
     return matchesSearch && matchesFilter;
   });
 
@@ -62,39 +69,41 @@ export default function AdminStatus() {
           className="border border-gray-300 px-3 py-2 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           <option value="All">All</option>
-          <option value="ENABLED">Enabled</option>
-          <option value="DISABLED">Disabled</option>
+          <option value="Enabled">Enabled</option>
+          <option value="Disabled">Disabled</option>
         </select>
       </div>
       <div className="overflow-x-auto rounded-lg shadow-md">
-        <table className="min-w-full divide-y divide-gray-200 text-sm">
-          <thead className="bg-gray-100 text-left text-gray-700">
-            <tr>
-              <th className="py-2 px-4 font-semibold">Interface</th>
-              <th className="py-2 px-4 font-semibold">Status</th>
-            </tr>
-          </thead>
-          <tbody className="bg-white divide-y divide-gray-100">
-            {filteredInterfaces.map((iface, index) => (
-              <tr key={index} className="hover:bg-gray-50">
-                <td className="py-2 px-4 font-medium text-gray-800">
-                  {iface.Interface}
-                </td>
-                <td
-                  className="py-2 px-4 font-semibold"
-                  style={{
-                    color:
-                      iface.Status.toUpperCase() === "ENABLED"
-                        ? "green"
-                        : "red",
-                  }}
-                >
-                  {iface.Status.toUpperCase()}
-                </td>
+        <div className="max-h-[300px] overflow-y-auto">
+          <table className="min-w-full divide-y divide-gray-200 text-sm">
+            <thead className="bg-gray-100 text-center text-gray-700">
+              <tr>
+                <th className="py-2 px-4 font-semibold">Interface</th>
+                <th className="py-2 px-4 font-semibold">Status</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody className="bg-white divide-y divide-gray-100">
+              {filteredInterfaces.map((iface, index) => (
+                <tr key={index} className="hover:bg-gray-50">
+                  <td className="py-2 px-4 font-medium text-gray-800">
+                    {iface.ifname}
+                  </td>
+                  <td
+                    className="py-2 px-4 font-semibold"
+                    style={{
+                      color:
+                        iface.admin_status?.toUpperCase() === "ENABLED"
+                          ? "green"
+                          : "red",
+                    }}
+                  >
+                    {iface.admin_status?.toUpperCase()}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

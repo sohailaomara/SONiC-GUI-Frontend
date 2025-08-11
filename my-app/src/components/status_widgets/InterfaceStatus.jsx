@@ -5,7 +5,7 @@ export default function InterfaceStatus() {
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("all");
 
-  const useMockData = true;
+  const useMockData = false;
 
   useEffect(() => {
     const fetchStatus = async () => {
@@ -70,40 +70,45 @@ export default function InterfaceStatus() {
       </div>
 
       <div className="overflow-x-auto rounded-lg shadow-md">
-        <table className="min-w-full divide-y divide-gray-200 text-sm">
-          <thead className="bg-gray-100 text-left text-gray-700">
-            <tr>
-              <th className="px-4 py-2 font-semibold">Interface</th>
-              <th className="px-4 py-2 font-semibold">Status</th>
-            </tr>
-          </thead>
-          <tbody className="bg-white divide-y divide-gray-100">
-            {filteredStatus.length > 0 ? (
-              filteredStatus.map(([iface, stat]) => (
-                <tr key={iface}>
-                  <td className="px-4 py-2 font-medium text-gray-800">
-                    {iface}
-                  </td>
+        <div className="max-h-[300px] overflow-y-auto">
+          <table className="min-w-full divide-y divide-gray-200 text-sm">
+            <thead className="bg-gray-100 text-center text-gray-700">
+              <tr>
+                <th className="px-4 py-2 font-semibold">Interface</th>
+                <th className="px-4 py-2 font-semibold">Status</th>
+              </tr>
+            </thead>
+            <tbody className="bg-white divide-y divide-gray-100">
+              {filteredStatus.length > 0 ? (
+                filteredStatus.map(([iface, stat]) => (
+                  <tr key={iface}>
+                    <td className="px-4 py-2 font-medium text-gray-800">
+                      {iface}
+                    </td>
+                    <td
+                      className={`px-4 py-2 font-semibold ${
+                        stat === "UP"
+                          ? "text-[rgb(0,128,0)]"
+                          : "text-[rgb(255,0,0)]"
+                      }`}
+                    >
+                      {stat}
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
                   <td
-                    className={`px-4 py-2 font-semibold ${
-                      stat === "UP"
-                        ? "text-[rgb(0,128,0)]"
-                        : "text-[rgb(255,0,0)]"
-                    }`}
+                    colSpan="2"
+                    className="px-4 py-2 text-center text-gray-500"
                   >
-                    {stat}
+                    No interfaces found.
                   </td>
                 </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="2" className="px-4 py-2 text-center text-gray-500">
-                  No interfaces found.
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

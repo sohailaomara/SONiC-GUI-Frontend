@@ -5,7 +5,7 @@ export default function OperationalStatus() {
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("all");
 
-  const useMockData = true; // set to false to use backend
+  const useMockData = false; // set to false to use backend
 
   useEffect(() => {
     const fetchStatus = async () => {
@@ -18,7 +18,8 @@ export default function OperationalStatus() {
         };
         const mockList = Object.entries(mock).map(([ifname, oper_status]) => ({
           ifname,
-          oper_status,
+          oper_status:
+            oper_status.charAt(0) + oper_status.slice(1).toLowerCase(), // Up / Down
         }));
         setStatus(mockList);
         return;
@@ -31,7 +32,9 @@ export default function OperationalStatus() {
         const data = await response.json();
         const formatted = data.ports.map((port) => ({
           ifname: port.ifname,
-          oper_status: port.oper_status,
+          oper_status:
+            port.oper_status.charAt(0) +
+            port.oper_status.slice(1).toLowerCase(), // Up / Down
         }));
         setStatus(formatted);
       } catch (error) {
@@ -72,39 +75,44 @@ export default function OperationalStatus() {
 
       {/* Status Table */}
       <div className="overflow-x-auto rounded-lg shadow-md">
-        <table className="min-w-full divide-y divide-gray-200 text-sm">
-          <thead className="bg-gray-100 text-left text-gray-700">
-            <tr>
-              <th className="px-4 py-2 font-semibold">Interface</th>
-              <th className="px-4 py-2 font-semibold">Status</th>
-            </tr>
-          </thead>
-          <tbody className="bg-white divide-y divide-gray-100">
-            {filteredStatus.map(({ ifname, oper_status }) => (
-              <tr key={ifname}>
-                <td className="px-4 py-2 font-medium text-gray-800">
-                  {ifname}
-                </td>
-                <td
-                  className={`px-4 py-2 font-semibold ${
-                    oper_status === "UP"
-                      ? "text-[rgb(0,128,0)]"
-                      : "text-[rgb(255,0,0)]"
-                  }`}
-                >
-                  {oper_status}
-                </td>
-              </tr>
-            ))}
-            {filteredStatus.length === 0 && (
+        <div className="max-h-[300px] overflow-y-auto">
+          <table className="min-w-full divide-y divide-gray-200 text-sm">
+            <thead className="bg-gray-100 text-center text-gray-700">
               <tr>
-                <td colSpan="2" className="px-4 py-4 text-center text-gray-500">
-                  No interfaces found.
-                </td>
+                <th className="px-4 py-2 font-semibold">Interface</th>
+                <th className="px-4 py-2 font-semibold">Status</th>
               </tr>
-            )}
-          </tbody>
-        </table>
+            </thead>
+            <tbody className="bg-white divide-y divide-gray-100">
+              {filteredStatus.map(({ ifname, oper_status }) => (
+                <tr key={ifname}>
+                  <td className="px-4 py-2 font-medium text-gray-800">
+                    {ifname}
+                  </td>
+                  <td
+                    className={`px-4 py-2 font-semibold ${
+                      oper_status === "UP"
+                        ? "text-[rgb(0,128,0)]"
+                        : "text-[rgb(255,0,0)]"
+                    }`}
+                  >
+                    {oper_status}
+                  </td>
+                </tr>
+              ))}
+              {filteredStatus.length === 0 && (
+                <tr>
+                  <td
+                    colSpan="2"
+                    className="px-4 py-4 text-center text-gray-500"
+                  >
+                    No interfaces found.
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

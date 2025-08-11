@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import DescriptionCard from "../status/DescriptionCard"; // ✅ use new card
+import DescriptionCard from "../status/DescriptionCard";
 
 export default function InterfaceDesc() {
   const [status, setStatus] = useState(null);
-  const useMockData = true;
+  const useMockData = false;
 
   useEffect(() => {
     const fetchStatus = async () => {

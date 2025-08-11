@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   CircularProgressbarWithChildren,
   buildStyles,
@@ -7,28 +7,30 @@ import "react-circular-progressbar/dist/styles.css";
 
 export default function SpeedGauge() {
   const [speed, setSpeed] = useState(0);
-  const socketRef = useRef(null);
 
   useEffect(() => {
-    const socket = new WebSocket("ws://localhost:8000/portOp/status-summary");
-    socketRef.current = socket;
-
-    socket.onmessage = (event) => {
+    const fetchSpeed = async () => {
       try {
-        const data = JSON.parse(event.data);
-        setSpeed(data.speed);
+        const res = await fetch("http://localhost:8000/portOp/status-summary");
+        const data = await res.json();
+
+        // Example: use the first port's speed
+        if (data.ports?.length > 0) {
+          setSpeed(Number(data.ports[0].speed) || 0);
+        }
       } catch (err) {
-        console.error("Invalid WebSocket speed data:", event.data);
+        console.error("Error fetching speed:", err);
       }
     };
 
-    return () => socket.close();
+    fetchSpeed();
+    const interval = setInterval(fetchSpeed, 2000); // refresh every 2s
+    return () => clearInterval(interval);
   }, []);
 
-  const maxSpeed = 1000;
+  const maxSpeed = 1000; // adjust if needed
   const percent = Math.min(speed / maxSpeed, 1);
 
-  // Dynamic color based on percent
   const getColor = () => {
     if (percent < 0.4) return "#f44336"; // red
     if (percent < 0.75) return "#ff9800"; // orange
@@ -37,10 +39,7 @@ export default function SpeedGauge() {
 
   return (
     <div className="w-64 p-6 bg-white rounded-2xl shadow-lg flex flex-col items-center">
-      <h2 className="text-lg font-semibold text-gray-800 mb-4">
-        Platform Speed
-      </h2>
-
+      <h2 className="text-lg font-semibold text-gray-800 mb-4">Speed</h2>
       <div className="w-40 h-40">
         <CircularProgressbarWithChildren
           value={percent * 100}
