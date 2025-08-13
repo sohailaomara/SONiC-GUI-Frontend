@@ -24,7 +24,7 @@ const GetVlans = () => {
       setLoading(false);
     }
 
-    setShowTable(!showTable); // Toggle table visibility
+    setShowTable(!showTable);
   };
 
   return (
@@ -56,14 +56,18 @@ const GetVlans = () => {
                 <tbody>
                   {vlans.map((vlan, index) => (
                     <tr key={index} className="border-t hover:bg-gray-50 ">
-                      <td className="px-4 py-2">{vlan.vlanid}</td>
-                      <td className="px-4 py-2">{vlan.name}</td>
-                      <td className="px-4 py-2">
+                      <td className="px-4 py-2 semibold text-sm">
+                        {vlan.vlanid}
+                      </td>
+                      <td className="px-4 py-2 semibold text-sm">
+                        {vlan.name}
+                      </td>
+                      <td className="px-4 py-2 semibold text-sm">
                         {vlan.description || (
                           <span className="text-gray-400 ">—</span>
                         )}
                       </td>
-                      <td className="px-4 py-2 capitalize">
+                      <td className="px-4 py-2 capitalize semibold text-sm">
                         {vlan.mac_learning}
                       </td>
                     </tr>

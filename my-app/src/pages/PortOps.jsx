@@ -1,10 +1,12 @@
 import Layout from "../components/Layout";
-import { AppWindow } from "lucide-react";
+import { AppWindow, Router } from "lucide-react";
 import PortOp from "../components/port_operation/get_port_op";
 import { useState } from "react";
 import { ChevronDown, ChevronRight } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export default function PortOps() {
+  const navigate = useNavigate();
   return (
     <Layout>
       <div className="flex justify-end mb-4">
@@ -17,7 +19,7 @@ export default function PortOps() {
       </div>
       <Section
         title="Port Operation"
-        icon={<AppWindow className="text-orange-500" />}
+        icon={<Router className="text-orange-500" />}
       >
         <PortOp />
       </Section>

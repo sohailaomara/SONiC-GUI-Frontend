@@ -125,7 +125,7 @@ export default function Layout({ children }) {
               </button>
             </div>
             {/* CLI Content */}
-            <div className="p-4 overflow-y-auto flex-1 bg-black">
+            <div className="p-4 overflow-auto flex-1 bg-black">
               <CLI />
             </div>
           </div>

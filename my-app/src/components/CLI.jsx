@@ -3,6 +3,11 @@ import { useState, useEffect, useRef } from "react";
 export default function CLI() {
   const [input, setInput] = useState("");
   const [output, setOutput] = useState([]);
+  const [history, setHistory] = useState(() => {
+    const saved = localStorage.getItem("cli_history");
+    return saved ? JSON.parse(saved) : [];
+  });
+  const [historyIndex, setHistoryIndex] = useState(-1);
   const socketRef = useRef(null);
   const containerRef = useRef(null);
 
@@ -39,33 +44,66 @@ export default function CLI() {
 
     setOutput((prev) => [...prev, `$ ${input}`]);
     socketRef.current?.send(input);
+
+    const newHistory = [...history, input];
+    setHistory(newHistory);
+    localStorage.setItem("cli_history", JSON.stringify(newHistory));
+    setHistoryIndex(-1);
     setInput("");
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "ArrowUp") {
+      e.preventDefault();
+      if (history.length > 0) {
+        const newIndex =
+          historyIndex === -1
+            ? history.length - 1
+            : Math.max(0, historyIndex - 1);
+        setHistoryIndex(newIndex);
+        setInput(history[newIndex]);
+      }
+    }
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      if (history.length > 0) {
+        if (historyIndex === -1) return; // already at newest
+        const newIndex = historyIndex + 1;
+        if (newIndex >= history.length) {
+          setHistoryIndex(-1);
+          setInput("");
+        } else {
+          setHistoryIndex(newIndex);
+          setInput(history[newIndex]);
+        }
+      }
+    }
   };
 
   return (
     <div
       className="bg-black text-green-500 font-mono text-sm p-4 rounded-md shadow-md"
-      style={{ width: "800px", height: "900px" }}
+      style={{ width: "800px" }}
+      ref={containerRef} // scroll container includes output + input
     >
-      <div
-        ref={containerRef}
-        className="overflow-y-auto w-full h-full whitespace-pre"
-        style={{ maxHeight: "500px", overflowX: "auto" }}
-      >
+      <div className="whitespace-pre-wrap">
         {output.map((line, index) => (
           <div key={index}>{line}</div>
         ))}
+
+        {/* Command input inline at bottom */}
+        <form onSubmit={handleCommand} className="flex mt-2">
+          <span className="mr-2 text-white">$</span>
+          <input
+            type="text"
+            className="flex-grow bg-transparent outline-none text-white"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={handleKeyDown}
+            autoFocus
+          />
+        </form>
       </div>
-      <form onSubmit={handleCommand} className="flex mt-2">
-        <span className="mr-2 text-white">$</span>
-        <input
-          type="text"
-          className="flex-grow bg-transparent outline-none text-white"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          autoFocus
-        />
-      </form>
     </div>
   );
 }
