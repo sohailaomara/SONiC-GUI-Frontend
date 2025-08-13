@@ -76,7 +76,7 @@ export default function AdminStatus() {
       <div className="overflow-x-auto rounded-lg shadow-md">
         <div className="max-h-[300px] overflow-y-auto">
           <table className="min-w-full divide-y divide-gray-200 text-sm text-gray-700">
-            <thead className="bg-gray-100 text-center text-gray-700">
+            <thead className="bg-gray-100 text-center text-gray-700 sticky top-0">
               <tr>
                 <th className="py-2 px-4 font-semibold">Interface</th>
                 <th className="py-2 px-4 font-semibold">Status</th>

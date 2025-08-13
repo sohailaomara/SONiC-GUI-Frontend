@@ -72,7 +72,7 @@ export default function InterfaceStatus() {
       <div className="overflow-x-auto rounded-lg shadow-md">
         <div className="max-h-[300px] overflow-y-auto">
           <table className="min-w-full divide-y divide-gray-200 text-sm text-gray-700">
-            <thead className="bg-gray-100 text-center text-gray-700">
+            <thead className="bg-gray-100 text-center text-gray-700 sticky top-0">
               <tr>
                 <th className="px-4 py-2 font-semibold text-gray-700">
                   Interface
