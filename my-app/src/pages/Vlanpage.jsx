@@ -5,7 +5,7 @@ import GetVlans from "../components/vlans/get_vlans";
 import PutVlan from "../components/vlans/put_vlans";
 import DeleteVlans from "../components/vlans/delete_vlans";
 import { useState } from "react";
-import { AppWindow } from "lucide-react";
+import { AppWindow, Repeat2, Trash, CornerRightDown, Text } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { ChevronDown, ChevronRight } from "lucide-react";
 
@@ -25,32 +25,26 @@ export default function VlanPage() {
 
       <Section
         title="Create VLAN"
-        icon={<AppWindow className="text-orange-500" />}
+        icon={<CornerRightDown className="text-orange-500" />}
       >
         <PostVlan />
       </Section>
       <Section
         title="Patch VLAN"
-        icon={<AppWindow className="text-orange-500" />}
+        icon={<Repeat2 className="text-orange-500" />}
       >
         <PatchVlan />
       </Section>
-      <Section
-        title="VLAN Data"
-        icon={<AppWindow className="text-orange-500" />}
-      >
+      <Section title="VLAN Data" icon={<Text className="text-orange-500" />}>
         <GetVlans />
       </Section>
-      <Section
+      {/* <Section
         title="Put VLAN"
-        icon={<AppWindow className="text-orange-500" />}
+        icon={<Repeat2 className="text-orange-500" />}
       >
         <PutVlan />
-      </Section>
-      <Section
-        title="Delete VLAN"
-        icon={<AppWindow className="text-orange-500" />}
-      >
+      </Section> */}
+      <Section title="Delete VLAN" icon={<Trash className="text-orange-500" />}>
         <DeleteVlans />
       </Section>
     </Layout>

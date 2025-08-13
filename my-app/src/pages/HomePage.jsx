@@ -1,6 +1,4 @@
 import Layout from "../components/Layout";
-import { AppWindow } from "lucide-react";
-import PortOp from "../components/port_operation/get_port_op";
 import { useState } from "react";
 import {
   ChevronDown,
