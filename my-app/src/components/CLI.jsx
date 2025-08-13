@@ -3,6 +3,11 @@ import { useState, useEffect, useRef } from "react";
 export default function CLI() {
   const [input, setInput] = useState("");
   const [output, setOutput] = useState([]);
+  const [history, setHistory] = useState(() => {
+    const saved = localStorage.getItem("cli_history");
+    return saved ? JSON.parse(saved) : [];
+  });
+  const [historyIndex, setHistoryIndex] = useState(-1);
   const socketRef = useRef(null);
   const containerRef = useRef(null);
 
@@ -39,7 +44,40 @@ export default function CLI() {
 
     setOutput((prev) => [...prev, `$ ${input}`]);
     socketRef.current?.send(input);
+
+    const newHistory = [...history, input];
+    setHistory(newHistory);
+    localStorage.setItem("cli_history", JSON.stringify(newHistory));
+    setHistoryIndex(-1);
     setInput("");
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "ArrowUp") {
+      e.preventDefault();
+      if (history.length > 0) {
+        const newIndex =
+          historyIndex === -1
+            ? history.length - 1
+            : Math.max(0, historyIndex - 1);
+        setHistoryIndex(newIndex);
+        setInput(history[newIndex]);
+      }
+    }
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      if (history.length > 0) {
+        if (historyIndex === -1) return; // already at newest
+        const newIndex = historyIndex + 1;
+        if (newIndex >= history.length) {
+          setHistoryIndex(-1);
+          setInput("");
+        } else {
+          setHistoryIndex(newIndex);
+          setInput(history[newIndex]);
+        }
+      }
+    }
   };
 
   return (
@@ -59,6 +97,7 @@ export default function CLI() {
           className="flex-grow bg-transparent outline-none text-white"
           value={input}
           onChange={(e) => setInput(e.target.value)}
+          onKeyDown={handleKeyDown}
           autoFocus
         />
       </form>
