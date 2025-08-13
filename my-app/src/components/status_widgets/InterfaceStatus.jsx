@@ -54,12 +54,12 @@ export default function InterfaceStatus() {
         <input
           type="text"
           placeholder="Search by interface name"
-          className="border border-gray-300 px-3 py-2 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="border border-gray-300 px-3 py-2 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-300 text-gray-200"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
         <select
-          className="border border-gray-300 px-3 py-2 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="border border-gray-300 px-3 py-2 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-300"
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
         >
@@ -71,11 +71,15 @@ export default function InterfaceStatus() {
 
       <div className="overflow-x-auto rounded-lg shadow-md">
         <div className="max-h-[300px] overflow-y-auto">
-          <table className="min-w-full divide-y divide-gray-200 text-sm">
+          <table className="min-w-full divide-y divide-gray-200 text-sm text-gray-700">
             <thead className="bg-gray-100 text-center text-gray-700">
               <tr>
-                <th className="px-4 py-2 font-semibold">Interface</th>
-                <th className="px-4 py-2 font-semibold">Status</th>
+                <th className="px-4 py-2 font-semibold text-gray-700">
+                  Interface
+                </th>
+                <th className="px-4 py-2 font-semibold text-gray-700">
+                  Status
+                </th>
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-100">

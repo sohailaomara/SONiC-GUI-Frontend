@@ -55,18 +55,18 @@ export default function AdminStatus() {
 
   return (
     <div className="p-4 space-y-4">
-      <div className="flex flex-wrap gap-4 items-center">
+      <div className="flex flex-wrap gap-4 items-center text-gray-800">
         <input
           type="text"
           placeholder="Search by interface name"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="border border-gray-300 px-3 py-2 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="border border-gray-300 px-3 py-2 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-300 text-gray-200"
         />
         <select
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
-          className="border border-gray-300 px-3 py-2 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="border border-gray-300 px-3 py-2 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-300"
         >
           <option value="All">All</option>
           <option value="Enabled">Enabled</option>
@@ -75,7 +75,7 @@ export default function AdminStatus() {
       </div>
       <div className="overflow-x-auto rounded-lg shadow-md">
         <div className="max-h-[300px] overflow-y-auto">
-          <table className="min-w-full divide-y divide-gray-200 text-sm">
+          <table className="min-w-full divide-y divide-gray-200 text-sm text-gray-700">
             <thead className="bg-gray-100 text-center text-gray-700">
               <tr>
                 <th className="py-2 px-4 font-semibold">Interface</th>
@@ -97,7 +97,7 @@ export default function AdminStatus() {
                           : "red",
                     }}
                   >
-                    {iface.admin_status?.toUpperCase()}
+                    {iface.admin_status}
                   </td>
                 </tr>
               ))}

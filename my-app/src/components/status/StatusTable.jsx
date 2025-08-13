@@ -9,7 +9,7 @@ export default function StatusTable({ name, status }) {
   return (
     <div className="bg-white rounded-xl shadow p-4 w-full max-w-xs">
       <div className="text-sm text-gray-500">Interface</div>
-      <div className="text-lg font-semibold">{name}</div>
+      <div className="text-lg font-semibold text-gray-600">{name}</div>
       <div className={`mt-2 font-bold ${statusColor}`}>{status}</div>
     </div>
   );
