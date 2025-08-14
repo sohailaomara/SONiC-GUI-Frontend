@@ -87,7 +87,6 @@ export default function CLI() {
     >
       <pre className="font-mono whitespace-pre">{output.join("\n")}</pre>
 
-
       {/* Command input inline at bottom */}
       <form onSubmit={handleCommand} className="flex mt-2">
         <span className="mr-2 text-white">$</span>
@@ -101,6 +100,5 @@ export default function CLI() {
         />
       </form>
     </div>
-
   );
 }
