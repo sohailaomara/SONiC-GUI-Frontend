@@ -79,31 +79,28 @@ export default function CLI() {
       }
     }
   };
-
   return (
     <div
-      className="bg-black text-green-500 font-mono text-sm p-4 rounded-md shadow-md"
+      className="bg-black text-green-500 font-mono text-sm p-4 rounded-md shadow-md resize overflow-auto"
       style={{ width: "800px" }}
       ref={containerRef} // scroll container includes output + input
     >
-      <div className="whitespace-pre-wrap">
-        {output.map((line, index) => (
-          <div key={index}>{line}</div>
-        ))}
+      <pre className="font-mono whitespace-pre">
+        {output.join("\n")}
+      </pre>
 
-        {/* Command input inline at bottom */}
-        <form onSubmit={handleCommand} className="flex mt-2">
-          <span className="mr-2 text-white">$</span>
-          <input
-            type="text"
-            className="flex-grow bg-transparent outline-none text-white"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyDown={handleKeyDown}
-            autoFocus
-          />
-        </form>
-      </div>
+      {/* Command input inline at bottom */}
+      <form onSubmit={handleCommand} className="flex mt-2">
+        <span className="mr-2 text-white">$</span>
+        <input
+          type="text"
+          className="flex-grow bg-transparent outline-none text-white"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          onKeyDown={handleKeyDown}
+          autoFocus
+        />
+      </form>
     </div>
   );
 }
