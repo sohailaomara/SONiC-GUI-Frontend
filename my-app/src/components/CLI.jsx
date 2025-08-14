@@ -81,13 +81,12 @@ export default function CLI() {
   };
   return (
     <div
-      className="bg-black text-green-500 font-mono text-sm p-4 rounded-md shadow-md resize overflow-auto"
+      className="bg-black text-green-500 font-mono text-sm p-4 rounded-md shadow-md"
       style={{ width: "800px" }}
       ref={containerRef} // scroll container includes output + input
     >
-      <pre className="font-mono whitespace-pre">
-        {output.join("\n")}
-      </pre>
+      <pre className="font-mono whitespace-pre">{output.join("\n")}</pre>
+
 
       {/* Command input inline at bottom */}
       <form onSubmit={handleCommand} className="flex mt-2">
@@ -102,5 +101,6 @@ export default function CLI() {
         />
       </form>
     </div>
+
   );
 }
