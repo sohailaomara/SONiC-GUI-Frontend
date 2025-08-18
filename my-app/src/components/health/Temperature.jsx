@@ -31,7 +31,9 @@ export default function Temperature() {
                 style={{ height: `${(t.value / maxTemp) * 100}%` }}
               ></div>
             </div>
-            <span className="mt-2 text-sm font-medium text-gray-600">{t.label}</span>
+            <span className="mt-2 text-sm font-medium text-gray-600">
+              {t.label}
+            </span>
             <span className="text-xs text-gray-500">{t.value}°C</span>
           </div>
         ))}

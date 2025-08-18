@@ -29,7 +29,9 @@ export default function Fans() {
               >
                 <Fan className="text-orange-500 w-12 h-12" />
               </div>
-              <span className="mt-2 text-sm font-medium text-gray-600">{f.id}</span>
+              <span className="mt-2 text-sm font-medium text-gray-600">
+                {f.id}
+              </span>
               <span className="text-xs text-gray-500">{f.speed} RPM</span>
             </div>
           );
@@ -37,7 +39,7 @@ export default function Fans() {
       </div>
 
       {/* spin animation */}
-      <style jsx>{`
+      <style>{`
         @keyframes spin {
           from {
             transform: rotate(0deg);

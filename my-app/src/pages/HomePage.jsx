@@ -51,17 +51,16 @@ export default function HomePage() {
             </Section>
           </div>
 
-<div className="col-span-1 xl:col-span-3 grid grid-cols-1 gap-4 self-start">
-  {/* Top row: Speed + Temperature side by side */}
-  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 self-start">
-    <SpeedGauge />
-    <Temperature />
-  </div>
+          <div className="col-span-1 xl:col-span-3 grid grid-cols-1 gap-4 self-start">
+            {/* Top row: Speed + Temperature side by side */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 self-start">
+              <SpeedGauge />
+              <Temperature />
+            </div>
 
-  {/* Bottom row: Fans full width */}
-  <Fans />
-</div>
-
+            {/* Bottom row: Fans full width */}
+            <Fans />
+          </div>
         </div>
       </div>
     </Layout>

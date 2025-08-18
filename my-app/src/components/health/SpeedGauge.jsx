@@ -38,25 +38,25 @@ export default function SpeedGauge() {
   };
 
   return (
-  <div className="p-6 bg-white rounded-2xl shadow-lg flex flex-col items-center">
-    <h2 className="text-xl font-semibold text-gray-800 mb-4 flex items-center gap-2 self-start">
-      <CircleGauge className="text-orange-500" /> Speed
-    </h2>
-    <div className="w-40 h-40 flex items-center justify-center">
-      <CircularProgressbarWithChildren
-        value={percent * 100}
-        strokeWidth={12}
-        styles={buildStyles({
-          pathColor: getColor(),
-          trailColor: "#eee",
-        })}
-      >
-        <div className="flex flex-col items-center justify-center">
-          <span className="text-xl font-bold text-gray-800">{speed}</span>
-          <span className="text-sm text-gray-500">Mbps</span>
-        </div>
-      </CircularProgressbarWithChildren>
+    <div className="p-6 bg-white rounded-2xl shadow-lg flex flex-col items-center">
+      <h2 className="text-xl font-semibold text-gray-800 mb-4 flex items-center gap-2 self-start">
+        <CircleGauge className="text-orange-500" /> Speed
+      </h2>
+      <div className="w-40 h-40 flex items-center justify-center">
+        <CircularProgressbarWithChildren
+          value={percent * 100}
+          strokeWidth={12}
+          styles={buildStyles({
+            pathColor: getColor(),
+            trailColor: "#eee",
+          })}
+        >
+          <div className="flex flex-col items-center justify-center">
+            <span className="text-xl font-bold text-gray-800">{speed}</span>
+            <span className="text-sm text-gray-500">Mbps</span>
+          </div>
+        </CircularProgressbarWithChildren>
+      </div>
     </div>
-  </div>
-);
+  );
 }
