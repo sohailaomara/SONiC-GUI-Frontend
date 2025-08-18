@@ -8,18 +8,22 @@ import {
   Info,
   Eye,
 } from "lucide-react";
+
 import OperationalStatus from "../components/status_widgets/OperationalStatus";
 import AdminStatus from "../components/status_widgets/AdminStatus";
 import InterfaceDesc from "../components/status_widgets/InterfaceDesc";
 import InterfaceStatus from "../components/status_widgets/InterfaceStatus";
 import SpeedGauge from "../components/health/SpeedGauge";
+import Temperature from "../components/health/Temperature";
+import Fans from "../components/health/Fans";
 
 export default function HomePage() {
   return (
     <Layout>
       <div className="p-6 space-y-4">
-        <div className="grid grid-cols-1 xl:grid-cols-4 gap-4">
-          {/* Sections take up 2 columns out of 4 */}
+        {/* Use 5-column grid for better proportions */}
+        <div className="grid grid-cols-1 xl:grid-cols-5 gap-4">
+          {/* Left side (status widgets, smaller width now) */}
           <div className="col-span-1 xl:col-span-2 space-y-4">
             <Section
               title="Operational Status"
@@ -47,24 +51,29 @@ export default function HomePage() {
             </Section>
           </div>
 
-          {/* Speed Gauge spans the other 2 columns */}
-          <div className="col-span-1 xl:col-span-2">
-            <SpeedGauge />
-          </div>
+<div className="col-span-1 xl:col-span-3 grid grid-cols-1 gap-4 self-start">
+  {/* Top row: Speed + Temperature side by side */}
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 self-start">
+    <SpeedGauge />
+    <Temperature />
+  </div>
+
+  {/* Bottom row: Fans full width */}
+  <Fans />
+</div>
+
         </div>
       </div>
     </Layout>
   );
+
   function Section({ title, icon, children }) {
     const [isOpen, setIsOpen] = useState(false);
 
-    const toggleSection = () => {
-      setIsOpen(!isOpen);
-    };
     return (
       <div className="mb-4 border border-gray-200 rounded-xl shadow-md">
         <button
-          onClick={toggleSection}
+          onClick={() => setIsOpen(!isOpen)}
           className="w-full flex items-center justify-between px-5 py-4 bg-white text-left rounded-t-xl hover:bg-gray-50 transition"
         >
           <div className="flex items-center gap-2">
