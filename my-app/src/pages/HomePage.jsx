@@ -14,6 +14,7 @@ import AdminStatus from "../components/status_widgets/AdminStatus";
 import InterfaceDesc from "../components/status_widgets/InterfaceDesc";
 import InterfaceStatus from "../components/status_widgets/InterfaceStatus";
 import SpeedGauge from "../components/health/SpeedGauge";
+import Usage from "../components/health/Usage";
 import Temperature from "../components/health/Temperature";
 import Fans from "../components/health/Fans";
 
@@ -51,15 +52,15 @@ export default function HomePage() {
             </Section>
           </div>
 
-          <div className="col-span-1 xl:col-span-3 grid grid-cols-1 gap-4 self-start">
+          <div className="col-span-2 xl:col-span-3 grid grid-cols-1 gap-4 self-start">
             {/* Top row: Speed + Temperature side by side */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 self-start">
+            <div className="grid grid-cols-2 md:grid-cols-2 gap-4 self-start">
               <SpeedGauge />
-              <Temperature />
+              <Usage />
             </div>
 
             {/* Bottom row: Fans full width */}
-            <Fans />
+            {/* <Fans /> */}
           </div>
         </div>
       </div>
