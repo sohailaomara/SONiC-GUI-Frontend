@@ -8,7 +8,6 @@ const Login = () => {
       const response = await api.post("/auth/login", credentials);
       console.log("User logged in successfully:", response.data);
       localStorage.setItem("token", response.data.access_token);
-      localStorage.setItem("username", credentials.username);
       window.location.href = "/home";
     } catch (error) {
       if (error.response && Array.isArray(error.response.data.detail)) {

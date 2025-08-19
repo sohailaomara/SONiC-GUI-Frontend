@@ -2,13 +2,28 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Menu, X, Terminal } from "lucide-react";
 import CLI from "./CLI";
+import { fetchCurrentUser } from "./auth/getuser"; // your axios call
 
 export default function Layout({ children }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [time, setTime] = useState(new Date());
-  const username = "User";
+  const [username, setUsername] = useState("User"); // initially placeholder
   const navigate = useNavigate();
   const [cliOpen, setCliOpen] = useState(false);
+
+  // fetch username when component mounts
+  useEffect(() => {
+    const loadUser = async () => {
+      const data = await fetchCurrentUser();
+      if (data?.username) {
+        setUsername(data.username);
+      } else {
+        // if no valid user, force logout
+        navigate("/login");
+      }
+    };
+    loadUser();
+  }, [navigate]);
 
   useEffect(() => {
     const interval = setInterval(() => setTime(new Date()), 1000);
@@ -16,22 +31,26 @@ export default function Layout({ children }) {
   }, []);
 
   const handleSignOut = () => {
+    localStorage.removeItem("token"); // remove token when signing out
     navigate("/login");
   };
 
   return (
     <div className="flex min-h-screen">
+      {/* overlay for mobile sidebar */}
       {sidebarOpen && (
         <div
           onClick={() => setSidebarOpen(false)}
           className="fixed inset-0 bg-black bg-opacity-40 z-30 sm:hidden"
         />
       )}
+
       {/* Sidebar */}
       <div
-        className={`transform bg-gray-100 border border-gray-300 text-white w-56 p-4 transition-transform duration-300 ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} fixed h-full z-40 rounded-r-xl shadow-xl`}
+        className={`transform bg-gray-100 border border-gray-300 text-white w-56 p-4 transition-transform duration-300 ${
+          sidebarOpen ? "translate-x-0" : "-translate-x-full"
+        } fixed h-full z-40 rounded-r-xl shadow-xl`}
       >
-        {/* Sidebar header/logo */}
         <div className="flex items-center justify-between mb-6">
           <button
             onClick={() => setSidebarOpen(!sidebarOpen)}
@@ -111,20 +130,16 @@ export default function Layout({ children }) {
 
         <main className="p-8">{children}</main>
       </div>
+
       {cliOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
           <div className="bg-white rounded-xl shadow-xl w-[95%] md:w-[900px] max-h-[80vh] overflow-hidden flex flex-col">
-            {/* Header */}
             <div className="flex justify-between items-center bg-gray-800 text-white px-4 py-2">
               <h2 className="text-lg font-semibold">CLI Terminal</h2>
-              <button
-                onClick={() => setCliOpen(false)}
-                className="text-red-400"
-              >
+              <button onClick={() => setCliOpen(false)} className="text-red-400">
                 ✕
               </button>
             </div>
-            {/* CLI Content */}
             <div className="p-4 overflow-auto flex-1 bg-black">
               <CLI />
             </div>
