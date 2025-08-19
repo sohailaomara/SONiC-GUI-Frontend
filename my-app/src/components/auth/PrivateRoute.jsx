@@ -3,7 +3,6 @@ import { Navigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import { jwtDecode } from "jwt-decode";
 
-
 const PrivateRoute = ({ children }) => {
   const token = localStorage.getItem("token");
   if (token) {
@@ -22,7 +21,6 @@ const PrivateRoute = ({ children }) => {
   }
   return <Navigate to="/login" />;
 };
-
 
 export default PrivateRoute;
 PrivateRoute.propTypes = {

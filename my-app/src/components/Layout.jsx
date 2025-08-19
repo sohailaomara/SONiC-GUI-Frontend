@@ -136,7 +136,10 @@ export default function Layout({ children }) {
           <div className="bg-white rounded-xl shadow-xl w-[95%] md:w-[900px] max-h-[80vh] overflow-hidden flex flex-col">
             <div className="flex justify-between items-center bg-gray-800 text-white px-4 py-2">
               <h2 className="text-lg font-semibold">CLI Terminal</h2>
-              <button onClick={() => setCliOpen(false)} className="text-red-400">
+              <button
+                onClick={() => setCliOpen(false)}
+                className="text-red-400"
+              >
                 ✕
               </button>
             </div>
