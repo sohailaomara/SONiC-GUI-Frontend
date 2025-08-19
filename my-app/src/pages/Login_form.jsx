@@ -57,7 +57,7 @@ const Login_form = ({ handleLogin }) => {
             required
           />
           {errors.username && (
-            <span className="text-s text-red-500">{errors.username}</span>
+            <span className="text-sm text-red-500">{errors.username}</span>
           )}
         </Field>
 
@@ -71,12 +71,12 @@ const Login_form = ({ handleLogin }) => {
             required
           />
           {errors.password && (
-            <span className="text-s text-red-500">{errors.password}</span>
+            <span className="text-sm text-red-500">{errors.password}</span>
           )}
         </Field>
 
         {errors.general && (
-          <span className="text-s text-red-500 -mt-4">{errors.general}</span>
+          <span className="text-sm text-red-500 -mt-4">{errors.general}</span>
         )}
 
         <Button
