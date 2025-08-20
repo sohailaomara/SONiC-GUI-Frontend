@@ -157,57 +157,36 @@ export default function CLI() {
 
   return (
     <div className="flex flex-col" style={{ width: "800px" }}>
-      {/* Control buttons */}
-      <div className="flex gap-2 mb-4">
-        {!isConnected && !isConnecting && (
-          <button
-            onClick={() => setShowPasswordModal(true)}
-            className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
-          >
-            Connect
-          </button>
-        )}
-
-        {isConnecting && (
-          <button
-            disabled
-            className="px-4 py-2 bg-yellow-600 text-white rounded opacity-75 cursor-not-allowed"
-          >
-            Connecting...
-          </button>
-        )}
-        {isConnected && (
-          <button
-            onClick={disconnect}
-            className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
-          >
-            Disconnect
-          </button>
-        )}
-        <div className="flex items-center">
-          <span
-            className={`w-3 h-3 rounded-full ${isConnected ? "bg-green-500" : "bg-red-500"}`}
-          ></span>
-          <span className="ml-2 text-sm">
-            {isConnected
-              ? "Connected"
-              : isConnecting
-                ? "Connecting..."
-                : "Disconnected"}
-          </span>
-        </div>
-      </div>
-
       {/* Terminal */}
       <div
         className="bg-black text-green-500 font-mono text-sm p-4 rounded-md shadow-md"
-        style={{ width: "800px" }}
+        style={{ width: "800px", minHeight: "400px" }}
         ref={containerRef}
       >
         <pre className="font-mono whitespace-pre">{output.join("\n")}</pre>
 
         <div className="whitespace-pre-wrap">
-          {/* Command input inline at bottom */}
+          {/* Password prompt when disconnected */}
+          {!isConnected && !isConnecting && (
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                connectToSSH();
+              }}
+              className="flex mt-2"
+            >
+              <span className="mr-2 text-white">Password:</span>
+              <input
+                type="password"
+                className="flex-grow bg-transparent outline-none text-white"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                autoFocus
+              />
+            </form>
+          )}
+
+          {/* Command input when connected */}
           {isConnected && (
             <form onSubmit={handleCommand} className="flex mt-2">
               <span className="mr-2 text-white">$</span>
@@ -224,49 +203,25 @@ export default function CLI() {
         </div>
       </div>
 
-      {/* Password Modal */}
-      {showPasswordModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-          <div className="bg-white p-6 rounded-lg shadow-lg">
-            <h3 className="text-lg font-bold mb-4 text-gray-800">
-              SSH Authentication
-            </h3>
-            <form onSubmit={handlePasswordSubmit}>
-              <div className="mb-4">
-                <label className="block text-sm font-medium mb-2 text-gray-700">
-                  Enter SSH Password:
-                </label>
-                <input
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  autoFocus
-                  required
-                />
-              </div>
-              <div className="flex gap-2">
-                <button
-                  type="submit"
-                  className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-                >
-                  Connect
-                </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setShowPasswordModal(false);
-                    setPassword("");
-                  }}
-                  className="px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-700"
-                >
-                  Cancel
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
+      {/* Action buttons */}
+      <div className="flex justify-center mt-4">
+        {!isConnected && !isConnecting && (
+          <button
+            onClick={connectToSSH}
+            className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
+          >
+            Connect
+          </button>
+        )}
+        {isConnecting && (
+          <button
+            disabled
+            className="px-4 py-2 bg-yellow-600 text-white rounded opacity-75 cursor-not-allowed"
+          >
+            Connecting...
+          </button>
+        )}
+      </div>
     </div>
   );
 }
