@@ -59,7 +59,7 @@ export default function InterfaceStatus() {
           onChange={(e) => setSearch(e.target.value)}
         />
         <select
-          className="w-20 border border-gray-300 px-3 py-2 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-300"
+          className="border border-gray-300 px-3 py-2 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-300"
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
         >
