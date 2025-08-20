@@ -38,10 +38,7 @@ export default function VlanPage() {
       <Section title="VLAN Data" icon={<Text className="text-orange-500" />}>
         <GetVlans />
       </Section>
-      <Section
-        title="Put VLAN"
-        icon={<Repeat2 className="text-orange-500" />}
-      >
+      <Section title="Put VLAN" icon={<Repeat2 className="text-orange-500" />}>
         <PutVlan />
       </Section>
       <Section title="Delete VLAN" icon={<Trash className="text-orange-500" />}>
