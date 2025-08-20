@@ -58,18 +58,18 @@ export default function OperationalStatus() {
         <input
           type="text"
           placeholder="Search by interface name"
-          className="border border-gray-300 px-3 py-2 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-300 text-gray-200"
+          className="w-72 border border-gray-300 px-3 py-2 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-300 text-gray-200"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
         <select
-          className="border border-gray-300 px-3 py-2 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-300"
+          className="w-20 border border-gray-300 px-3 py-2 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-300"
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
         >
           <option value="all">All</option>
-          <option value="UP">UP</option>
-          <option value="DOWN">DOWN</option>
+          <option value="up">Up</option>
+          <option value="down">Down</option>
         </select>
       </div>
 

@@ -61,12 +61,12 @@ export default function AdminStatus() {
           placeholder="Search by interface name"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="border border-gray-300 px-3 py-2 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-300 text-gray-200"
+          className="w-72 border border-gray-300 px-3 py-2 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-300 text-gray-200"
         />
         <select
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
-          className="border border-gray-300 px-3 py-2 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-300"
+          className="w-20 border border-gray-300 px-3 py-2 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-300"
         >
           <option value="All">All</option>
           <option value="Enabled">Enabled</option>
