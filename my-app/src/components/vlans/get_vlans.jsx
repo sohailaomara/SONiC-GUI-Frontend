@@ -36,8 +36,8 @@ const GetVlans = () => {
         {loading
           ? "Loading..."
           : showTable
-          ? "Collapse VLAN Data"
-          : "Get VLAN Data"}
+            ? "Collapse VLAN Data"
+            : "Get VLAN Data"}
       </button>
 
       {showTable && (
