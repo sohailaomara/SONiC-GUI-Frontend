@@ -13,7 +13,7 @@ export default function CLI() {
   const [isConnecting, setIsConnecting] = useState(false);
   const [isConnected, setIsConnected] = useState(false);
   const [firstConnection, setfirstConnection] = useState(true);
-  
+
   const socketRef = useRef(null);
   const containerRef = useRef(null);
 
@@ -30,21 +30,23 @@ export default function CLI() {
 
     const token = getToken();
     if (!token) {
-      setOutput((prev) => [...prev, "** Authentication token not found. Please login again. **"]);
+      setOutput((prev) => [
+        ...prev,
+        "** Authentication token not found. Please login again. **",
+      ]);
       return;
     }
 
     setIsConnecting(true);
     setShowPasswordModal(false);
-    
+
     const socket = new WebSocket("ws://localhost:8000/ws/ssh");
     socketRef.current = socket;
 
     socket.onopen = () => {
-      
       const authData = {
         token: token,
-        password: password
+        password: password,
       };
       socket.send(JSON.stringify(authData));
     };
@@ -53,10 +55,13 @@ export default function CLI() {
       if (event.data.includes("** Authentication failed")) {
         setIsConnected(false);
         setIsConnecting(false);
-        setPassword(""); 
+        setPassword("");
       } else if (event.data === "__RECONNECT__") {
         setIsConnected(false);
-        setOutput((prev) => [...prev, "** Connection lost. Click 'Connect' to reconnect **"]);
+        setOutput((prev) => [
+          ...prev,
+          "** Connection lost. Click 'Connect' to reconnect **",
+        ]);
       } else if (!isConnected && !event.data.includes("**")) {
         setIsConnected(true);
         setIsConnecting(false);
@@ -65,7 +70,10 @@ export default function CLI() {
     };
 
     socket.onerror = (err) => {
-      setOutput((prev) => [...prev, "** Error: WebSocket connection failed **"]);
+      setOutput((prev) => [
+        ...prev,
+        "** Error: WebSocket connection failed **",
+      ]);
       setIsConnected(false);
       setIsConnecting(false);
     };
@@ -78,12 +86,11 @@ export default function CLI() {
     };
   };
   useEffect(() => {
-  if (!isConnected && !isConnecting && firstConnection) {
-    setShowPasswordModal(true);
-    setfirstConnection(false);
-  }
-}, [isConnected, isConnecting]);
-
+    if (!isConnected && !isConnecting && firstConnection) {
+      setShowPasswordModal(true);
+      setfirstConnection(false);
+    }
+  }, [isConnected, isConnecting]);
 
   const disconnect = () => {
     if (socketRef.current) {
@@ -152,11 +159,13 @@ export default function CLI() {
     <div className="flex flex-col" style={{ width: "800px" }}>
       {/* Control buttons */}
       <div className="flex gap-2 mb-4">
-        {!isConnected && !isConnecting && ( 
-          <button onClick={() => setShowPasswordModal(true)}
-           className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700" > 
-           Connect 
-          </button> 
+        {!isConnected && !isConnecting && (
+          <button
+            onClick={() => setShowPasswordModal(true)}
+            className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
+          >
+            Connect
+          </button>
         )}
 
         {isConnecting && (
@@ -176,29 +185,33 @@ export default function CLI() {
           </button>
         )}
         <div className="flex items-center">
-          <span className={`w-3 h-3 rounded-full ${isConnected ? 'bg-green-500' : 'bg-red-500'}`}></span>
+          <span
+            className={`w-3 h-3 rounded-full ${isConnected ? "bg-green-500" : "bg-red-500"}`}
+          ></span>
           <span className="ml-2 text-sm">
-            {isConnected ? 'Connected' : isConnecting ? 'Connecting...' : 'Disconnected'}
+            {isConnected
+              ? "Connected"
+              : isConnecting
+                ? "Connecting..."
+                : "Disconnected"}
           </span>
         </div>
       </div>
 
       {/* Terminal */}
       <div
-      className="bg-black text-green-500 font-mono text-sm p-4 rounded-md shadow-md"
-      style={{ width: "800px" }}
-      ref={containerRef}
+        className="bg-black text-green-500 font-mono text-sm p-4 rounded-md shadow-md"
+        style={{ width: "800px" }}
+        ref={containerRef}
       >
-      <pre className="font-mono whitespace-pre">{output.join("\n")}</pre>
-      
-        <div className="whitespace-pre-wrap">
-          
+        <pre className="font-mono whitespace-pre">{output.join("\n")}</pre>
 
+        <div className="whitespace-pre-wrap">
           {/* Command input inline at bottom */}
           {isConnected && (
             <form onSubmit={handleCommand} className="flex mt-2">
               <span className="mr-2 text-white">$</span>
-                <input
+              <input
                 type="text"
                 className="flex-grow bg-transparent outline-none text-white"
                 value={input}
@@ -215,7 +228,9 @@ export default function CLI() {
       {showPasswordModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
           <div className="bg-white p-6 rounded-lg shadow-lg">
-            <h3 className="text-lg font-bold mb-4 text-gray-800">SSH Authentication</h3>
+            <h3 className="text-lg font-bold mb-4 text-gray-800">
+              SSH Authentication
+            </h3>
             <form onSubmit={handlePasswordSubmit}>
               <div className="mb-4">
                 <label className="block text-sm font-medium mb-2 text-gray-700">
