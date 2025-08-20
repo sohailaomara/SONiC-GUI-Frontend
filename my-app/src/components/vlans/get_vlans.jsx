@@ -36,14 +36,16 @@ const GetVlans = () => {
         {loading
           ? "Loading..."
           : showTable
-            ? "Collapse VLAN Data"
-            : "Get VLAN Data"}
+          ? "Collapse VLAN Data"
+          : "Get VLAN Data"}
       </button>
 
-      {showTable &&
-        (vlans.length > 0 ? (
-          <>
-            <div className="overflow-y-auto max-h-[320px] border border-gray-200 rounded shadow ">
+      {showTable && (
+        <>
+          {loading ? (
+            <p className="text-gray-500 text-sm">Loading VLANs...</p>
+          ) : vlans.length > 0 ? (
+            <div className="overflow-y-auto max-h-[320px] border border-gray-200 rounded shadow">
               <table className="w-full text-sm">
                 <thead className="bg-orange-200 text-orange-800 sticky top-0">
                   <tr>
@@ -55,7 +57,7 @@ const GetVlans = () => {
                 </thead>
                 <tbody>
                   {vlans.map((vlan, index) => (
-                    <tr key={index} className="border-t hover:bg-gray-50 ">
+                    <tr key={index} className="border-t hover:bg-gray-50">
                       <td className="px-4 py-2 semibold text-sm">
                         {vlan.vlanid}
                       </td>
@@ -64,7 +66,7 @@ const GetVlans = () => {
                       </td>
                       <td className="px-4 py-2 semibold text-sm">
                         {vlan.description || (
-                          <span className="text-gray-400 ">—</span>
+                          <span className="text-gray-400">—</span>
                         )}
                       </td>
                       <td className="px-4 py-2 capitalize semibold text-sm">
@@ -75,10 +77,11 @@ const GetVlans = () => {
                 </tbody>
               </table>
             </div>
-          </>
-        ) : (
-          !loading && <p className="text-gray-500  text-sm">No VLANs found.</p>
-        ))}
+          ) : (
+            <p className="text-gray-500 text-sm">No VLANs found.</p>
+          )}
+        </>
+      )}
     </div>
   );
 };

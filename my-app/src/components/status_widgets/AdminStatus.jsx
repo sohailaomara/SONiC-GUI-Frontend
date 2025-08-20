@@ -66,7 +66,7 @@ export default function AdminStatus() {
         <select
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
-          className="w-20 border border-gray-300 px-3 py-2 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-300"
+          className="border border-gray-300 px-3 py-2 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-300"
         >
           <option value="All">All</option>
           <option value="Enabled">Enabled</option>
@@ -101,6 +101,16 @@ export default function AdminStatus() {
                   </td>
                 </tr>
               ))}
+              {filteredInterfaces.length === 0 && (
+                <tr>
+                  <td
+                    colSpan="2"
+                    className="px-4 py-4 text-center text-gray-500"
+                  >
+                    No interfaces found.
+                  </td>
+                </tr>
+              )}
             </tbody>
           </table>
         </div>
