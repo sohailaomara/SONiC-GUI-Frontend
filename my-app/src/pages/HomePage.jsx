@@ -53,7 +53,7 @@ export default function HomePage() {
           </div>
 
           <div className="col-span-2 xl:col-span-3 grid grid-cols-1 gap-4 self-start">
-            {/* Top row: Speed + Temperature side by side */}
+            {/* Top row: Speed + Usage side by side */}
             <div className="grid grid-cols-2 md:grid-cols-2 gap-4 self-start">
               <SpeedGauge />
               <Usage />

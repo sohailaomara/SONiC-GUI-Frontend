@@ -1,14 +1,11 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { AuthLayout } from "../components/auth/auth-layout";
 import { Button } from "../components/auth/button";
-import { Checkbox, CheckboxField } from "../components/auth/checkbox";
 import { Field, Label } from "../components/auth/fieldset";
 import { Heading } from "../components/auth/heading";
 import { Input } from "../components/auth/input";
-import { Select } from "../components/auth/select";
 import { Strong, Text, TextLink } from "../components/auth/text";
 import Logo from "../assets/logo.png";
-import { Link } from "react-router-dom";
 
 const Register = ({ handleSignUp }) => {
   const [formData, setFormData] = useState({

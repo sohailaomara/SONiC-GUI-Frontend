@@ -10,6 +10,7 @@ export default function InterfaceStatus() {
   useEffect(() => {
     const fetchStatus = async () => {
       if (useMockData) {
+        // Mock key:value status mapping
         const mock = {
           eth0: "UP",
           eth1: "DOWN",
@@ -25,6 +26,7 @@ export default function InterfaceStatus() {
           "http://localhost:8000/portOp/status-summary",
         );
         const data = await response.json();
+        // Convert array into { ifname: status } map
         const formatted = {};
         data.ports.forEach((port) => {
           formatted[port.ifname] = port.oper_status; // or another relevant field
@@ -38,6 +40,7 @@ export default function InterfaceStatus() {
     fetchStatus();
   }, []);
 
+  // Apply search + dropdown filter
   const filteredStatus = status
     ? Object.entries(status).filter(([iface, stat]) => {
         const matchesSearch = iface

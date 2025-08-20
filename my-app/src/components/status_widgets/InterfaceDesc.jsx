@@ -9,6 +9,7 @@ export default function InterfaceDesc() {
   useEffect(() => {
     const fetchStatus = async () => {
       if (useMockData) {
+        // Mock description mapping for interfaces
         const mock = {
           eth0: "Uplink",
           eth1: "Core switch",
@@ -30,6 +31,7 @@ export default function InterfaceDesc() {
           "http://localhost:8000/portOp/status-summary",
         );
         const data = await response.json();
+        // Convert array of ports into key:value map -> { ifname: description }
         const formatted = {};
         data.ports.forEach((port) => {
           formatted[port.ifname] = port.description;
@@ -43,7 +45,7 @@ export default function InterfaceDesc() {
     fetchStatus();
   }, []);
 
-  // filter by interface name OR description
+  // Filter by either interface name or description
   const filteredStatus = status
     ? Object.entries(status).filter(([iface, desc]) => {
         const lowerSearch = searchTerm.toLowerCase();
@@ -80,7 +82,7 @@ export default function InterfaceDesc() {
             ))
           ) : (
             <p className="col-span-2 text-gray-500 text-center">
-              No matches found
+              No interfaces found.
             </p>
           )}
         </div>

@@ -7,9 +7,10 @@ import "react-circular-progressbar/dist/styles.css";
 import { CircleGauge } from "lucide-react";
 
 export default function SpeedGauge() {
-  const [speed, setSpeed] = useState(0);
+  const [speed, setSpeed] = useState(0); // current port speed
 
   useEffect(() => {
+    // Fetch current speed from backend API
     const fetchSpeed = async () => {
       try {
         const res = await fetch("http://localhost:8000/portOp/status-summary");
@@ -28,7 +29,7 @@ export default function SpeedGauge() {
     return () => clearInterval(interval);
   }, []);
 
-  const maxSpeed = 40000;
+  const maxSpeed = 40000; // max Mbps
   const percent = Math.min(speed / maxSpeed, 1);
 
   const getColor = () => {

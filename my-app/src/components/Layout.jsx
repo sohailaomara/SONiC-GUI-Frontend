@@ -17,10 +17,11 @@ export default function Layout({ children }) {
       const data = await fetchCurrentUser();
       if (data?.username) {
         setUsername(data.username);
-      } else {
-        // if no valid user, force logout
-        navigate("/login");
       }
+      // else {
+      //   // if no valid user, force logout
+      //   navigate("/login");
+      // }
     };
     loadUser();
   }, [navigate]);

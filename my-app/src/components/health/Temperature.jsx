@@ -1,14 +1,16 @@
 import { Thermometer } from "lucide-react";
 
 export default function Temperature() {
+  // Example temperature values
   const temps = [
     { label: "CPU", value: 70 },
     { label: "System", value: 55 },
     { label: "Ambient", value: 40 },
   ];
 
-  const maxTemp = 100;
+  const maxTemp = 100; // scaling reference
 
+  // Decide color based on temperature thresholds
   const getColor = (val) => {
     const percent = val / maxTemp;
     if (percent <= 0.4) return "bg-green-500";

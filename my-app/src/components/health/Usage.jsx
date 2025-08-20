@@ -7,8 +7,9 @@ export default function Usage() {
     { label: "Memory", value: 0 },
   ]);
 
-  const maxVal = 100;
+  const maxVal = 100; // percentage scale
 
+  // Pick color depending on usage %
   const getColor = (val) => {
     const percent = val / maxVal;
     if (percent <= 0.4) return "bg-green-500";
@@ -17,12 +18,14 @@ export default function Usage() {
   };
 
   useEffect(() => {
+    // Open WebSocket for real-time CPU/Memory usage
     const ws = new WebSocket("ws://localhost:8000/ws/cpu_status");
 
     ws.onmessage = (event) => {
       try {
         const data = JSON.parse(event.data);
 
+        // Update usage state if valid data is received
         if (
           data.cpu_used_percent !== undefined &&
           data.memory_used_percent !== undefined
@@ -41,7 +44,7 @@ export default function Usage() {
       console.error("WebSocket error:", err);
     };
 
-    return () => ws.close();
+    return () => ws.close(); // cleanup
   }, []);
 
   return (

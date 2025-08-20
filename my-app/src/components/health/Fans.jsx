@@ -2,12 +2,13 @@ import { Wind, Fan } from "lucide-react";
 import { useEffect, useState } from "react";
 
 export default function Fans() {
+  // Fan data (could later come from API/WebSocket)
   const [fans, setFans] = useState([
     { id: "Fan 1", speed: 3200 },
     { id: "Fan 2", speed: 2800 },
   ]);
 
-  const maxRPM = 5000;
+  const maxRPM = 5000; // maximum fan speed for scaling animation
 
   return (
     <div className="w-full p-6 bg-white rounded-2xl shadow-lg">
