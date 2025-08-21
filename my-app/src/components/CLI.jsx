@@ -17,9 +17,7 @@ export default function CLI() {
 
   const connectWS = () => {
     const username = localStorage.getItem("username");
-    const socket = new WebSocket(
-      `ws://localhost:8000/switch/status/${username}`,
-    );
+    const socket = new WebSocket(`ws://localhost:8000/switch/cli/${username}`);
     socketRef.current = socket;
 
     socket.onopen = () => {
