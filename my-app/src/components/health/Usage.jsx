@@ -18,14 +18,13 @@ export default function Usage() {
   };
 
   useEffect(() => {
-    // Open WebSocket for real-time CPU/Memory usage
-    const ws = new WebSocket("ws://localhost:8000/ws/cpu_status");
+    const username = localStorage.getItem("username");
+    const ws = new WebSocket(`ws://localhost:8000/switch/status/${username}`);
 
     ws.onmessage = (event) => {
       try {
         const data = JSON.parse(event.data);
 
-        // Update usage state if valid data is received
         if (
           data.cpu_used_percent !== undefined &&
           data.memory_used_percent !== undefined
@@ -44,7 +43,7 @@ export default function Usage() {
       console.error("WebSocket error:", err);
     };
 
-    return () => ws.close(); // cleanup
+    return () => ws.close();
   }, []);
 
   return (
