@@ -60,7 +60,8 @@ export default function HomePage() {
             </div>
 
             {/* Bottom row: Fans full width */}
-            {/* <Fans /> */}
+            <Fans />
+            <Temperature/>
           </div>
         </div>
       </div>

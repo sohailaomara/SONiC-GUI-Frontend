@@ -3,7 +3,7 @@ name: Lint and Build Frontend Docker
 on: [push, pull_request]
 
 jobs:
-  lint-and-build:
+  lint:
     runs-on: ubuntu-latest
 
     steps:
@@ -23,5 +23,11 @@ jobs:
         run: npm run lint
         working-directory: my-app
 
+      - name: Build Docker Image
+        run: docker build -t my-frontend-app ./my-app
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
       - name: Build Docker Image
         run: docker build -t my-frontend-app ./my-app

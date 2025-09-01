@@ -6,6 +6,9 @@ export default function Fans() {
   const [fans, setFans] = useState([
     { id: "Fan 1", speed: 3200 },
     { id: "Fan 2", speed: 2800 },
+    { id: "Fan 3", speed: 1400 },
+    { id: "Fan 4", speed: 3600 },
+    { id: "Fan 5", speed: 0 },
   ]);
 
   const maxRPM = 5000; // maximum fan speed for scaling animation
