@@ -50,7 +50,7 @@ export default function HomePage() {
             >
               <InterfaceDesc />
             </CompactSection>
-            
+
             {/* Temperature component below the collapsible sections (takes 2 columns width) */}
             <Temperature />
           </div>

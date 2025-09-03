@@ -42,7 +42,7 @@ export default function SpeedGauge() {
       <h2 className="text-base font-semibold text-gray-800 mb-3 flex items-center gap-1">
         <CircleGauge className="text-orange-500 w-4 h-4" /> Speed
       </h2>
-      
+
       {/* Gauge centered within the container */}
       <div className="flex justify-center">
         <div className="w-28 h-28 flex items-center justify-center">

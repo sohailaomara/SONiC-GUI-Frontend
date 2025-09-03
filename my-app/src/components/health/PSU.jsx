@@ -6,14 +6,14 @@ export default function PSU() {
       id: "PSU 1",
       power: 79.0,
       status: "OK",
-      led: "green"
+      led: "green",
     },
     {
-      id: "PSU 2", 
+      id: "PSU 2",
       power: 0.0,
       status: "NOT OK",
-      led: "red"
-    }
+      led: "red",
+    },
   ];
 
   return (
@@ -24,31 +24,42 @@ export default function PSU() {
 
       <div className="space-y-2">
         {psus.map((psu, index) => (
-          <div key={index} className={`p-2 rounded-lg border ${psu.status === "OK" ? "border-green-100 bg-green-50" : "border-red-100 bg-red-50"}`}>
+          <div
+            key={index}
+            className={`p-2 rounded-lg border ${psu.status === "OK" ? "border-green-100 bg-green-50" : "border-red-100 bg-red-50"}`}
+          >
             <div className="flex items-center justify-between mb-1">
-              <span className="text-xs font-medium text-gray-800">{psu.id}</span>
+              <span className="text-xs font-medium text-gray-800">
+                {psu.id}
+              </span>
               <div className="flex items-center gap-1">
                 {psu.status === "OK" ? (
                   <CheckCircle className="w-3 h-3 text-green-600" />
                 ) : (
                   <AlertCircle className="w-3 h-3 text-red-600" />
                 )}
-                <span className={`text-xs font-medium ${psu.status === "OK" ? "text-green-700" : "text-red-700"}`}>
+                <span
+                  className={`text-xs font-medium ${psu.status === "OK" ? "text-green-700" : "text-red-700"}`}
+                >
                   {psu.status}
                 </span>
               </div>
             </div>
-            
+
             <div className="flex justify-between items-center">
               <span className="text-xs text-gray-600">Power:</span>
               <span className="text-xs font-bold">{psu.power} W</span>
             </div>
-            
+
             <div className="flex justify-between items-center mt-1">
               <span className="text-xs text-gray-600">LED:</span>
               <div className="flex items-center gap-1">
-                <div className={`w-2 h-2 rounded-full ${psu.led === "green" ? "bg-green-500" : "bg-red-500"}`}></div>
-                <span className="text-xs font-medium capitalize">{psu.led}</span>
+                <div
+                  className={`w-2 h-2 rounded-full ${psu.led === "green" ? "bg-green-500" : "bg-red-500"}`}
+                ></div>
+                <span className="text-xs font-medium capitalize">
+                  {psu.led}
+                </span>
               </div>
             </div>
           </div>
