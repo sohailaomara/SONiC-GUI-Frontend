@@ -1,12 +1,8 @@
 export default function DescriptionCard({ name, description }) {
   return (
-    <div className="bg-white shadow-md shadow-gray-300 border border-gray-100 p-4 rounded w-48 text-gray-800">
-      <h3 className="font-bold mb-2 text-gray-700">{name}</h3>
-      <p className="text-sm text-gray-600">
-        {description && description.trim() !== ""
-          ? description
-          : "No description"}
-      </p>
+    <div className="p-3 bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow transition-shadow">
+      <h3 className="font-medium text-gray-800 text-sm mb-1 truncate">{name}</h3>
+      <p className="text-gray-600 text-sm truncate">{description || "No description"}</p>
     </div>
   );
 }

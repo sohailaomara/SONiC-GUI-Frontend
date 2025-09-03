@@ -3,13 +3,12 @@ import DescriptionCard from "../status/DescriptionCard";
 
 export default function InterfaceDesc() {
   const [status, setStatus] = useState(null);
-  const [searchTerm, setSearchTerm] = useState(""); // <-- added
+  const [searchTerm, setSearchTerm] = useState("");
   const useMockData = false;
 
   useEffect(() => {
     const fetchStatus = async () => {
       if (useMockData) {
-        // Mock description mapping for interfaces
         const mock = {
           eth0: "Uplink",
           eth1: "Core switch",
@@ -27,11 +26,8 @@ export default function InterfaceDesc() {
       }
 
       try {
-        const response = await fetch(
-          "http://localhost:8000/portOp/status-summary",
-        );
+        const response = await fetch("http://localhost:8000/portOp/status-summary");
         const data = await response.json();
-        // Convert array of ports into key:value map -> { ifname: description }
         const formatted = {};
         data.ports.forEach((port) => {
           formatted[port.ifname] = port.description;
@@ -45,7 +41,6 @@ export default function InterfaceDesc() {
     fetchStatus();
   }, []);
 
-  // Filter by either interface name or description
   const filteredStatus = status
     ? Object.entries(status).filter(([iface, desc]) => {
         const lowerSearch = searchTerm.toLowerCase();
@@ -57,37 +52,35 @@ export default function InterfaceDesc() {
     : [];
 
   return (
-    <div className="p-4 space-y-4">
+    <div className="p-3 space-y-3">
       {/* search box */}
-      <div className="flex flex-wrap gap-4 items-center text-gray-800">
+      <div className="flex flex-wrap gap-3 items-center">
         <input
           type="text"
           placeholder="Search by interface or description"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="w-72 border border-gray-300 px-3 py-2 rounded-md shadow-sm 
-                     focus:outline-none focus:ring-2 focus:ring-orange-300 
-                     text-gray-700"
+          className="w-64 border border-gray-300 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-300"
         />
       </div>
 
       {status ? (
         <div
-          className="grid grid-cols-2 gap-4 overflow-y-auto"
-          style={{ maxHeight: "400px" }} // 4 rows × 2 cards = 8 visible
+          className="grid grid-cols-2 gap-3 overflow-y-auto"
+          style={{ maxHeight: "350px" }}
         >
           {filteredStatus.length > 0 ? (
             filteredStatus.map(([iface, desc]) => (
               <DescriptionCard key={iface} name={iface} description={desc} />
             ))
           ) : (
-            <p className="col-span-2 text-gray-500 text-center">
+            <p className="col-span-2 text-gray-500 text-center text-sm py-3">
               No interfaces found.
             </p>
           )}
         </div>
       ) : (
-        <p>Loading...</p>
+        <p className="text-sm text-gray-500">Loading...</p>
       )}
     </div>
   );
