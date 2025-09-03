@@ -17,79 +17,83 @@ import SpeedGauge from "../components/health/SpeedGauge";
 import Usage from "../components/health/Usage";
 import Temperature from "../components/health/Temperature";
 import Fans from "../components/health/Fans";
+import PSU from "../components/health/PSU";
 
 export default function HomePage() {
   return (
     <Layout>
-      <div className="p-6 space-y-4">
-        {/* Use 5-column grid for better proportions */}
-        <div className="grid grid-cols-1 xl:grid-cols-5 gap-4">
-          {/* Left side (status widgets, smaller width now) */}
-          <div className="col-span-1 xl:col-span-2 space-y-4">
-            <Section
+      <div className="p-4 space-y-3">
+        <div className="grid grid-cols-1 xl:grid-cols-5 gap-3">
+          {/* Left side - Status widgets (2 columns) */}
+          <div className="col-span-1 xl:col-span-2 space-y-3">
+            <CompactSection
               title="Operational Status"
-              icon={<Activity className="text-orange-500" />}
+              icon={<Activity className="text-orange-500 w-4 h-4" />}
             >
               <OperationalStatus />
-            </Section>
-            <Section
+            </CompactSection>
+            <CompactSection
               title="Admin Status"
-              icon={<Settings className="text-orange-500" />}
+              icon={<Settings className="text-orange-500 w-4 h-4" />}
             >
               <AdminStatus />
-            </Section>
-            <Section
+            </CompactSection>
+            <CompactSection
               title="Interface Status"
-              icon={<Eye className="text-orange-500" />}
+              icon={<Eye className="text-orange-500 w-4 h-4" />}
             >
               <InterfaceStatus />
-            </Section>
-            <Section
+            </CompactSection>
+            <CompactSection
               title="Interface Descriptions"
-              icon={<Info className="text-orange-500" />}
+              icon={<Info className="text-orange-500 w-4 h-4" />}
             >
               <InterfaceDesc />
-            </Section>
+            </CompactSection>
+            
+            {/* Temperature component below the collapsible sections (takes 2 columns width) */}
+            <Temperature />
           </div>
 
-          <div className="col-span-2 xl:col-span-3 grid grid-cols-1 gap-4 self-start">
-            {/* Top row: Speed + Usage side by side */}
-            <div className="grid grid-cols-2 md:grid-cols-2 gap-4 self-start">
+          {/* Right side - Health metrics (3 columns) */}
+          <div className="col-span-2 xl:col-span-3 space-y-3">
+            {/* Top row: Speed + Usage + PSU (3 columns) */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
               <SpeedGauge />
               <Usage />
+              <PSU />
             </div>
 
-            {/* Bottom row: Fans full width */}
+            {/* Fans component takes full width of the 3 columns */}
             <Fans />
-            <Temperature />
           </div>
         </div>
       </div>
     </Layout>
   );
 
-  function Section({ title, icon, children }) {
+  function CompactSection({ title, icon, children }) {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
-      <div className="mb-4 border border-gray-200 rounded-xl shadow-md">
+      <div className="mb-3 border border-gray-200 rounded-lg shadow-sm">
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="w-full flex items-center justify-between px-5 py-4 bg-white text-left rounded-t-xl hover:bg-gray-50 transition"
+          className="w-full flex items-center justify-between px-4 py-3 bg-white text-left rounded-t-lg hover:bg-gray-50 transition"
         >
           <div className="flex items-center gap-2">
             {icon}
-            <h2 className="text-md font-semibold text-gray-900">{title}</h2>
+            <h2 className="text-base font-semibold text-gray-900">{title}</h2>
           </div>
           {isOpen ? (
-            <ChevronDown className="text-gray-600" />
+            <ChevronDown className="text-gray-600 w-4 h-4" />
           ) : (
-            <ChevronRight className="text-gray-600" />
+            <ChevronRight className="text-gray-600 w-4 h-4" />
           )}
         </button>
 
         {isOpen && (
-          <div className="px-5 pb-5 pt-2 bg-gray-50 rounded-b-xl transition-all duration-300">
+          <div className="px-4 pb-4 pt-2 bg-gray-50 rounded-b-lg transition-all duration-300">
             {children}
           </div>
         )}
