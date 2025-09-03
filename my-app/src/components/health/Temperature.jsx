@@ -1,16 +1,36 @@
 import { Thermometer } from "lucide-react";
+import { useEffect, useState } from "react";
 
 export default function Temperature() {
-  const temps = [
-    { label: "CPU", value: 70 },
-    { label: "GPU", value: 68 },
-    { label: "System", value: 55 },
-    { label: "Ambient", value: 40 },
-    { label: "PSU", value: 62 },
-    { label: "NVMe", value: 58 },
-  ];
-
+  const [temps, setTemps] = useState([]);
   const maxTemp = 100;
+
+  useEffect(() => {
+    const username = localStorage.getItem("username");
+    const ws = new WebSocket(`ws://localhost:8000/switch/status/${username}`);
+
+    ws.onmessage = (event) => {
+      try {
+        const data = JSON.parse(event.data);
+        if (data.temp) {
+          // Convert the temperature data from object to array format
+          const tempArray = Object.entries(data.temp).map(([label, value]) => ({
+            label: label.replace(/_/g, " ").replace(/temp sensor/gi, "Sensor"), // Clean up labels
+            value: parseFloat(value) || 0,
+          }));
+          setTemps(tempArray);
+        }
+      } catch (err) {
+        console.error("Error parsing temperature data:", err);
+      }
+    };
+
+    ws.onerror = (err) => {
+      console.error("WebSocket error:", err);
+    };
+
+    return () => ws.close();
+  }, []);
 
   const getColor = (val) => {
     const percent = val / maxTemp;
@@ -31,10 +51,12 @@ export default function Temperature() {
             <div className="w-4 h-16 bg-gray-200 rounded-full relative overflow-hidden">
               <div
                 className={`${getColor(t.value)} absolute bottom-0 w-full rounded-full`}
-                style={{ height: `${(t.value / maxTemp) * 100}%` }}
+                style={{
+                  height: `${Math.min((t.value / maxTemp) * 100, 100)}%`,
+                }}
               ></div>
             </div>
-            <span className="mt-1 text-xs font-medium text-gray-600">
+            <span className="mt-1 text-xs font-medium text-gray-600 truncate text-center">
               {t.label}
             </span>
             <span className="text-xs text-gray-500">{t.value}°C</span>

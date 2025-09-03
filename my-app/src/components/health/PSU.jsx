@@ -1,20 +1,37 @@
 import { BatteryCharging, AlertCircle, CheckCircle } from "lucide-react";
+import { useEffect, useState } from "react";
 
 export default function PSU() {
-  const psus = [
-    {
-      id: "PSU 1",
-      power: 79.0,
-      status: "OK",
-      led: "green",
-    },
-    {
-      id: "PSU 2",
-      power: 0.0,
-      status: "NOT OK",
-      led: "red",
-    },
-  ];
+  const [psus, setPsus] = useState([]);
+
+  useEffect(() => {
+    const username = localStorage.getItem("username");
+    const ws = new WebSocket(`ws://localhost:8000/switch/status/${username}`);
+
+    ws.onmessage = (event) => {
+      try {
+        const data = JSON.parse(event.data);
+        if (data.psus) {
+          // Convert the PSU data from object to array format
+          const psuArray = Object.entries(data.psus).map(([id, psuData]) => ({
+            id: id,
+            power: parseFloat(psuData.Power) || 0,
+            status: psuData.Status || "UNKNOWN",
+            led: psuData.LED || "gray",
+          }));
+          setPsus(psuArray);
+        }
+      } catch (err) {
+        console.error("Error parsing PSU data:", err);
+      }
+    };
+
+    ws.onerror = (err) => {
+      console.error("WebSocket error:", err);
+    };
+
+    return () => ws.close();
+  }, []);
 
   return (
     <div className="w-full p-3 bg-white rounded-xl shadow-sm">
@@ -55,7 +72,13 @@ export default function PSU() {
               <span className="text-xs text-gray-600">LED:</span>
               <div className="flex items-center gap-1">
                 <div
-                  className={`w-2 h-2 rounded-full ${psu.led === "green" ? "bg-green-500" : "bg-red-500"}`}
+                  className={`w-2 h-2 rounded-full ${
+                    psu.led === "green"
+                      ? "bg-green-500"
+                      : psu.led === "red"
+                        ? "bg-red-500"
+                        : "bg-gray-400"
+                  }`}
                 ></div>
                 <span className="text-xs font-medium capitalize">
                   {psu.led}

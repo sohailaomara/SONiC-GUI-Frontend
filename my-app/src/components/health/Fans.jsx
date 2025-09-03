@@ -2,20 +2,42 @@ import { Wind, Fan } from "lucide-react";
 import { useEffect, useState } from "react";
 
 export default function Fans() {
-  const [fans, setFans] = useState([
-    { id: "Fan 1", speed: 3200 },
-    { id: "Fan 2", speed: 2800 },
-    { id: "Fan 3", speed: 1400 },
-    { id: "Fan 4", speed: 3600 },
-    { id: "Fan 5", speed: 0 },
-    { id: "Fan 6", speed: 4200 },
-    { id: "Fan 7", speed: 1800 },
-    { id: "Fan 8", speed: 2500 },
-    { id: "Fan 9", speed: 3900 },
-    { id: "Fan 10", speed: 3100 },
-  ]);
-
+  const [fans, setFans] = useState([]);
   const maxRPM = 5000;
+
+  useEffect(() => {
+    const username = localStorage.getItem("username");
+    const ws = new WebSocket(`ws://localhost:8000/switch/status/${username}`);
+
+    ws.onmessage = (event) => {
+      try {
+        const data = JSON.parse(event.data);
+        if (data.fans) {
+          // Convert the fan data from object to array format
+          const fanArray = Object.entries(data.fans).map(([id, speed]) => {
+            // Extract RPM value from percentage string (e.g., "40%" -> 2000 RPM)
+            const speedPercent = parseInt(speed) || 0;
+            const speedRPM = (speedPercent / 100) * maxRPM;
+
+            return {
+              id: id.replace(/_/g, " "), // Replace underscores with spaces for better display
+              speed: Math.round(speedRPM),
+              percentage: speedPercent,
+            };
+          });
+          setFans(fanArray);
+        }
+      } catch (err) {
+        console.error("Error parsing fan data:", err);
+      }
+    };
+
+    ws.onerror = (err) => {
+      console.error("WebSocket error:", err);
+    };
+
+    return () => ws.close();
+  }, []);
 
   return (
     <div className="w-full p-3 bg-white rounded-xl shadow-sm">
@@ -23,7 +45,7 @@ export default function Fans() {
         <Wind className="text-orange-500 w-4 h-4" /> Fans ({fans.length})
       </h2>
 
-      <div className="grid grid-cols-5 gap-2">
+      <div className="grid grid-cols-6 gap-2">
         {fans.map((f, i) => {
           const speedPercent = Math.min(f.speed / maxRPM, 1);
           const rotationSpeed = `${2 - speedPercent * 1.5}s`;
@@ -50,6 +72,7 @@ export default function Fans() {
                 {f.id}
               </span>
               <span className="text-xs text-gray-500">{f.speed} RPM</span>
+              <span className="text-xs text-gray-400">{f.percentage}%</span>
             </div>
           );
         })}
