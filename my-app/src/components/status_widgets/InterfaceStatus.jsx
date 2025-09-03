@@ -21,7 +21,9 @@ export default function InterfaceStatus() {
       }
 
       try {
-        const response = await fetch("http://localhost:8000/portOp/status-summary");
+        const response = await fetch(
+          "http://localhost:8000/portOp/status-summary",
+        );
         const data = await response.json();
         const formatted = {};
         data.ports.forEach((port) => {
@@ -38,7 +40,9 @@ export default function InterfaceStatus() {
 
   const filteredStatus = status
     ? Object.entries(status).filter(([iface, stat]) => {
-        const matchesSearch = iface.toLowerCase().includes(search.toLowerCase());
+        const matchesSearch = iface
+          .toLowerCase()
+          .includes(search.toLowerCase());
         const matchesFilter = filter === "all" || stat === filter;
         return matchesSearch && matchesFilter;
       })
@@ -70,15 +74,21 @@ export default function InterfaceStatus() {
           <table className="min-w-full divide-y divide-gray-200 text-sm">
             <thead className="bg-gray-100 text-center sticky top-0">
               <tr>
-                <th className="px-3 py-2 font-semibold text-gray-700">Interface</th>
-                <th className="px-3 py-2 font-semibold text-gray-700">Status</th>
+                <th className="px-3 py-2 font-semibold text-gray-700">
+                  Interface
+                </th>
+                <th className="px-3 py-2 font-semibold text-gray-700">
+                  Status
+                </th>
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-100">
               {filteredStatus.length > 0 ? (
                 filteredStatus.map(([iface, stat]) => (
                   <tr key={iface} className="hover:bg-gray-50">
-                    <td className="px-3 py-2 font-medium text-gray-800">{iface}</td>
+                    <td className="px-3 py-2 font-medium text-gray-800">
+                      {iface}
+                    </td>
                     <td
                       className={`px-3 py-2 font-semibold ${
                         stat === "UP" ? "text-green-600" : "text-red-600"
@@ -90,7 +100,10 @@ export default function InterfaceStatus() {
                 ))
               ) : (
                 <tr>
-                  <td colSpan="2" className="px-3 py-3 text-center text-gray-500 text-sm">
+                  <td
+                    colSpan="2"
+                    className="px-3 py-3 text-center text-gray-500 text-sm"
+                  >
                     No interfaces found.
                   </td>
                 </tr>

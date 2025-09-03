@@ -26,7 +26,9 @@ export default function InterfaceDesc() {
       }
 
       try {
-        const response = await fetch("http://localhost:8000/portOp/status-summary");
+        const response = await fetch(
+          "http://localhost:8000/portOp/status-summary",
+        );
         const data = await response.json();
         const formatted = {};
         data.ports.forEach((port) => {

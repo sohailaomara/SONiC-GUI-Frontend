@@ -18,18 +18,23 @@ export default function OperationalStatus() {
         };
         const mockList = Object.entries(mock).map(([ifname, oper_status]) => ({
           ifname,
-          oper_status: oper_status.charAt(0) + oper_status.slice(1).toLowerCase(),
+          oper_status:
+            oper_status.charAt(0) + oper_status.slice(1).toLowerCase(),
         }));
         setStatus(mockList);
         return;
       }
 
       try {
-        const response = await fetch("http://localhost:8000/portOp/status-summary");
+        const response = await fetch(
+          "http://localhost:8000/portOp/status-summary",
+        );
         const data = await response.json();
         const formatted = data.ports.map((port) => ({
           ifname: port.ifname,
-          oper_status: port.oper_status.charAt(0) + port.oper_status.slice(1).toLowerCase(),
+          oper_status:
+            port.oper_status.charAt(0) +
+            port.oper_status.slice(1).toLowerCase(),
         }));
         setStatus(formatted);
       } catch (error) {
@@ -74,14 +79,20 @@ export default function OperationalStatus() {
           <table className="min-w-full divide-y divide-gray-200 text-sm">
             <thead className="bg-gray-100 text-center sticky top-0">
               <tr>
-                <th className="px-3 py-2 font-semibold text-gray-700">Interface</th>
-                <th className="px-3 py-2 font-semibold text-gray-700">Status</th>
+                <th className="px-3 py-2 font-semibold text-gray-700">
+                  Interface
+                </th>
+                <th className="px-3 py-2 font-semibold text-gray-700">
+                  Status
+                </th>
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-100">
               {filteredStatus.map(({ ifname, oper_status }) => (
                 <tr key={ifname} className="hover:bg-gray-50">
-                  <td className="px-3 py-2 font-medium text-gray-800">{ifname}</td>
+                  <td className="px-3 py-2 font-medium text-gray-800">
+                    {ifname}
+                  </td>
                   <td
                     className={`px-3 py-2 font-semibold ${
                       oper_status === "UP" ? "text-green-600" : "text-red-600"
@@ -93,7 +104,10 @@ export default function OperationalStatus() {
               ))}
               {filteredStatus.length === 0 && (
                 <tr>
-                  <td colSpan="2" className="px-3 py-3 text-center text-gray-500 text-sm">
+                  <td
+                    colSpan="2"
+                    className="px-3 py-3 text-center text-gray-500 text-sm"
+                  >
                     No interfaces found.
                   </td>
                 </tr>

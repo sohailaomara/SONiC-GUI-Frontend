@@ -10,7 +10,11 @@ export default function AdminStatus() {
 
   const mapAdminStatus = (status) => {
     if (!status) return "";
-    return status.toLowerCase() === "up" ? "Enabled" : status.toLowerCase() === "down" ? "Disabled" : status;
+    return status.toLowerCase() === "up"
+      ? "Enabled"
+      : status.toLowerCase() === "down"
+        ? "Disabled"
+        : status;
   };
 
   useEffect(() => {
@@ -40,8 +44,12 @@ export default function AdminStatus() {
   }, []);
 
   const filteredInterfaces = interfaces.filter((iface) => {
-    const matchesSearch = iface.ifname?.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesFilter = filter === "All" || iface.admin_status?.toUpperCase() === filter.toUpperCase();
+    const matchesSearch = iface.ifname
+      ?.toLowerCase()
+      .includes(searchTerm.toLowerCase());
+    const matchesFilter =
+      filter === "All" ||
+      iface.admin_status?.toUpperCase() === filter.toUpperCase();
     return matchesSearch && matchesFilter;
   });
 
@@ -77,11 +85,16 @@ export default function AdminStatus() {
             <tbody className="bg-white divide-y divide-gray-100">
               {filteredInterfaces.map((iface, index) => (
                 <tr key={index} className="hover:bg-gray-50">
-                  <td className="py-2 px-3 font-medium text-gray-800">{iface.ifname}</td>
+                  <td className="py-2 px-3 font-medium text-gray-800">
+                    {iface.ifname}
+                  </td>
                   <td
                     className="py-2 px-3 font-semibold"
                     style={{
-                      color: iface.admin_status?.toUpperCase() === "ENABLED" ? "green" : "red",
+                      color:
+                        iface.admin_status?.toUpperCase() === "ENABLED"
+                          ? "green"
+                          : "red",
                     }}
                   >
                     {iface.admin_status}
@@ -90,7 +103,10 @@ export default function AdminStatus() {
               ))}
               {filteredInterfaces.length === 0 && (
                 <tr>
-                  <td colSpan="2" className="px-3 py-3 text-center text-gray-500 text-sm">
+                  <td
+                    colSpan="2"
+                    className="px-3 py-3 text-center text-gray-500 text-sm"
+                  >
                     No interfaces found.
                   </td>
                 </tr>
