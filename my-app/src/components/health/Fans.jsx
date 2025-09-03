@@ -29,17 +29,22 @@ export default function Fans() {
           const speedPercent = Math.min(f.speed / maxRPM, 1);
           const rotationSpeed = `${2 - speedPercent * 1.5}s`; // faster at higher RPM
           const isStopped = f.speed === 0;
-          
+
           return (
-            <div key={i} className="flex flex-col items-center p-2 bg-gray-50 rounded-lg">
+            <div
+              key={i}
+              className="flex flex-col items-center p-2 bg-gray-50 rounded-lg"
+            >
               <div
                 className="w-10 h-10 flex items-center justify-center"
                 style={{
-                  animation: !isStopped ? `spin ${rotationSpeed} linear infinite` : 'none',
+                  animation: !isStopped
+                    ? `spin ${rotationSpeed} linear infinite`
+                    : "none",
                 }}
               >
-                <Fan 
-                  className={`w-8 h-8 ${isStopped ? 'text-gray-400' : 'text-orange-500'}`} 
+                <Fan
+                  className={`w-8 h-8 ${isStopped ? "text-gray-400" : "text-orange-500"}`}
                 />
               </div>
               <span className="mt-1 text-xs font-medium text-gray-600 truncate w-full text-center">
