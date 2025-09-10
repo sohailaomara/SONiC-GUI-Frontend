@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { MessageCircle, X, Bot } from "lucide-react";
 
 export default function ChatbotButton() {
@@ -7,9 +7,34 @@ export default function ChatbotButton() {
     { id: 1, from: "bot", text: "Hello! How can I help you today?" },
   ]);
   const [input, setInput] = useState("");
+  const [connected, setConnected] = useState(false);
+
+  const socketRef = useRef(null);
+
+  // Connect to backend WebSocket
+  useEffect(() => {
+    const username = localStorage.getItem("username") || "guest";
+    const socket = new WebSocket(
+      `ws://localhost:8000/chatbot/chat/${username}`,
+    );
+    socketRef.current = socket;
+
+    socket.onopen = () => setConnected(true);
+
+    socket.onmessage = (event) => {
+      setMessages((prev) => [
+        ...prev,
+        { id: Date.now(), from: "bot", text: event.data },
+      ]);
+    };
+
+    socket.onclose = () => setConnected(false);
+
+    return () => socket.close();
+  }, []);
 
   const handleSend = () => {
-    if (!input.trim()) return;
+    if (!input.trim() || !connected) return;
 
     // Add user message
     setMessages((prev) => [
@@ -17,15 +42,10 @@ export default function ChatbotButton() {
       { id: Date.now(), from: "user", text: input },
     ]);
 
-    setInput("");
+    // Send to backend
+    socketRef.current?.send(input);
 
-    // Simulate bot reply
-    setTimeout(() => {
-      setMessages((prev) => [
-        ...prev,
-        { id: Date.now(), from: "bot", text: "Got it! I'm working on that." },
-      ]);
-    }, 1000);
+    setInput("");
   };
 
   return (
