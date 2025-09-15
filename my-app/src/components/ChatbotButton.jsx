@@ -8,6 +8,8 @@ export default function ChatbotButton() {
   ]);
   const [input, setInput] = useState("");
   const [connected, setConnected] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const socketRef = useRef(null);
 
@@ -19,16 +21,31 @@ export default function ChatbotButton() {
     );
     socketRef.current = socket;
 
-    socket.onopen = () => setConnected(true);
+    socket.onopen = () => {
+      setConnected(true);
+      setError(null);
+    };
 
     socket.onmessage = (event) => {
+      // remove loading bubble if exists
+      setMessages((prev) => prev.filter((msg) => msg.id !== "loading"));
       setMessages((prev) => [
         ...prev,
         { id: Date.now(), from: "bot", text: event.data },
       ]);
+      setLoading(false);
     };
 
-    socket.onclose = () => setConnected(false);
+    socket.onerror = () => {
+      setError("⚠️ Connection error. Please try again.");
+      setLoading(false);
+    };
+
+    socket.onclose = () => {
+      setConnected(false);
+      setError("⚠️ Chat disconnected.");
+      setLoading(false);
+    };
 
     return () => socket.close();
   }, []);
@@ -42,8 +59,16 @@ export default function ChatbotButton() {
       { id: Date.now(), from: "user", text: input },
     ]);
 
-    // Send to backend
-    socketRef.current?.send(input);
+
+    setLoading(true);
+    setError(null);
+
+    try {
+      socketRef.current?.send(input);
+    } catch (err) {
+      setError("⚠️ Failed to send message.");
+      setLoading(false);
+    }
 
     setInput("");
   };
@@ -101,6 +126,20 @@ export default function ChatbotButton() {
                 </div>
               </div>
             ))}
+
+            {/* Error message */}
+            {error && (
+              <div className="text-red-500 text-xs text-center">{error}</div>
+            )}
+
+            {/* Loading bubble (animated) */}
+            {loading && (
+              <div className="flex justify-start">
+                <div className="px-3 py-2 rounded-lg bg-gray-200 text-gray-500 text-sm animate-pulse">
+                  Bot is typing...
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Input */}
