@@ -59,7 +59,6 @@ export default function ChatbotButton() {
       { id: Date.now(), from: "user", text: input },
     ]);
 
-
     setLoading(true);
     setError(null);
 
