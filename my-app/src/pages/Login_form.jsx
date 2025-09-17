@@ -55,6 +55,10 @@ const Login_form = ({ handleLogin }) => {
             value={formData.username}
             onChange={handleChange}
             required
+            className="block w-full rounded-lg border border-gray-300 bg-white
+            px-3 py-2 text-gray-900 placeholder-gray-400
+            focus:border-orange-500 focus:ring-2 focus:ring-orange-500
+            shadow-sm"
           />
           {errors.username && (
             <span className="text-sm text-red-500">{errors.username}</span>
@@ -69,6 +73,10 @@ const Login_form = ({ handleLogin }) => {
             value={formData.password}
             onChange={handleChange}
             required
+            className="block w-full rounded-lg border border-gray-300 bg-white
+            px-3 py-2 text-gray-900 placeholder-gray-400
+            focus:border-orange-500 focus:ring-2 focus:ring-orange-500
+            shadow-sm"
           />
           {errors.password && (
             <span className="text-sm text-red-500">{errors.password}</span>

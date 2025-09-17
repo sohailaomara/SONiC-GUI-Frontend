@@ -62,7 +62,7 @@ export default function InterfaceDesc() {
           placeholder="Search by interface or description"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="w-64 border border-gray-300 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-300"
+          className="w-64 border border-gray-300 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-300 text-gray-900"
         />
       </div>
 

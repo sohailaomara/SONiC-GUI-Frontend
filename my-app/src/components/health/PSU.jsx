@@ -43,7 +43,11 @@ export default function PSU() {
         {psus.map((psu, index) => (
           <div
             key={index}
-            className={`p-2 rounded-lg border ${psu.status === "OK" ? "border-green-100 bg-green-50" : "border-red-100 bg-red-50"}`}
+            className={`p-2 rounded-lg border ${
+              psu.status === "OK"
+                ? "border-green-100 bg-green-50"
+                : "border-red-100 bg-red-50"
+            }`}
           >
             <div className="flex items-center justify-between mb-1">
               <span className="text-xs font-medium text-gray-800">
@@ -56,7 +60,9 @@ export default function PSU() {
                   <AlertCircle className="w-3 h-3 text-red-600" />
                 )}
                 <span
-                  className={`text-xs font-medium ${psu.status === "OK" ? "text-green-700" : "text-red-700"}`}
+                  className={`text-xs font-medium ${
+                    psu.status === "OK" ? "text-green-700" : "text-red-700"
+                  }`}
                 >
                   {psu.status}
                 </span>
@@ -65,7 +71,9 @@ export default function PSU() {
 
             <div className="flex justify-between items-center">
               <span className="text-xs text-gray-600">Power:</span>
-              <span className="text-xs font-bold">{psu.power} W</span>
+              <span className="text-xs font-bold text-gray-900">
+                {psu.power} W
+              </span>
             </div>
 
             <div className="flex justify-between items-center mt-1">
@@ -80,7 +88,7 @@ export default function PSU() {
                         : "bg-gray-400"
                   }`}
                 ></div>
-                <span className="text-xs font-medium capitalize">
+                <span className="text-xs font-medium capitalize text-gray-700">
                   {psu.led}
                 </span>
               </div>

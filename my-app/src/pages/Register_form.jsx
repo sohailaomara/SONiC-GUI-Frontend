@@ -55,6 +55,10 @@ const Register = ({ handleSignUp }) => {
             value={formData.email}
             onChange={handleChange}
             required
+            className="block w-full rounded-lg border border-gray-300 bg-white
+            px-3 py-2 text-gray-900 placeholder-gray-400
+            focus:border-orange-500 focus:ring-2 focus:ring-orange-500
+            shadow-sm"
           />
         </Field>
 
@@ -65,6 +69,10 @@ const Register = ({ handleSignUp }) => {
             value={formData.username}
             onChange={handleChange}
             required
+            className="block w-full rounded-lg border border-gray-300 bg-white
+            px-3 py-2 text-gray-900 placeholder-gray-400
+            focus:border-orange-500 focus:ring-2 focus:ring-orange-500
+            shadow-sm"
           />
           {errors.username && (
             <span className="text-s text-red-500 mt-1">{errors.username}</span>
@@ -80,6 +88,10 @@ const Register = ({ handleSignUp }) => {
             onChange={handleChange}
             autoComplete="new-password"
             required
+            className="block w-full rounded-lg border border-gray-300 bg-white
+            px-3 py-2 text-gray-900 placeholder-gray-400
+            focus:border-orange-500 focus:ring-2 focus:ring-orange-500
+            shadow-sm"
           />
           {errors.password && (
             <span className="text-s text-red-500 mt-1">{errors.password}</span>

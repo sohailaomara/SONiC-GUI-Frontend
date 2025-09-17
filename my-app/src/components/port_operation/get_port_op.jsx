@@ -54,7 +54,7 @@ const GetPortOp = () => {
                   <th className="px-4 py-2 text-center">Operation Status</th>
                 </tr>
               </thead>
-              <tbody className="text-gray-900 dark:text-white">
+              <tbody className="text-gray-900">
                 {ports.map((port, idx) => (
                   <tr
                     key={idx}
@@ -98,9 +98,7 @@ const GetPortOp = () => {
           </div>
         ) : (
           !loading && (
-            <p className="text-gray-500 dark:text-gray-400 text-sm">
-              No Port-Op data found yet.
-            </p>
+            <p className="text-gray-500 text-sm">No Port-Op data found yet.</p>
           )
         ))}
     </div>

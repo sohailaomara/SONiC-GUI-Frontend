@@ -61,12 +61,12 @@ export default function AdminStatus() {
           placeholder="Search by interface name"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="w-64 border border-gray-300 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-300"
+          className="w-64 border border-gray-300 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-300 text-gray-900"
         />
         <select
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
-          className="border border-gray-300 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-300"
+          className="border border-gray-300 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-300 text-gray-900"
         >
           <option value="All">All</option>
           <option value="Enabled">Enabled</option>
@@ -78,8 +78,12 @@ export default function AdminStatus() {
           <table className="min-w-full divide-y divide-gray-200 text-sm">
             <thead className="bg-gray-100 text-center sticky top-0">
               <tr>
-                <th className="py-2 px-3 font-semibold">Interface</th>
-                <th className="py-2 px-3 font-semibold">Status</th>
+                <th className="py-2 px-3 font-semibold text-gray-700">
+                  Interface
+                </th>
+                <th className="py-2 px-3 font-semibold text-gray-700">
+                  Status
+                </th>
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-100">

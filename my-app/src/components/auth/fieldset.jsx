@@ -5,9 +5,7 @@ export function Field({ children }) {
 
 export function Label({ children }) {
   return (
-    <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
-      {children}
-    </label>
+    <label className="text-sm font-medium text-gray-700">{children}</label>
   );
 }
 Field.propTypes = {
