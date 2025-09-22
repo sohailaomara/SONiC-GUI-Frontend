@@ -6,6 +6,7 @@ import PrivateRoute from "./components/auth/PrivateRoute";
 import HomePage from "./pages/HomePage";
 import Vlanpage from "./pages/Vlanpage";
 import PortOps from "./pages/PortOps";
+import ChatbotPage from "./pages/ChatbotPage";
 
 function App() {
   return (
@@ -48,6 +49,7 @@ function App() {
       />
       <Route path="/vlan" element={<Vlanpage />} />
       <Route path="/portops" element={<PortOps />} />
+      <Route path="/chatbot" element={<ChatbotPage />} />
     </Routes>
   );
 }
