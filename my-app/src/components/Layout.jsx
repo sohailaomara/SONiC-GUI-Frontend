@@ -86,6 +86,13 @@ export default function Layout({ children }) {
           >
             PortOps
           </Link>
+          <Link
+            to="/chatbot"
+            onClick={() => setSidebarOpen(false)}
+            className="text-orange-500 font-medium hover:text-orange-600"
+          >
+            Chatbot
+          </Link>
         </nav>
       </div>
 
