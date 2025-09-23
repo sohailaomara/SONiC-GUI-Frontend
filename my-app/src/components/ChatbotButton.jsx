@@ -47,8 +47,6 @@ export default function ChatbotButton() {
           const parsedTable = parseAsciiTable(lines);
 
           setTableData(parsedTable);
-
-          // ✅ Removed the "Command executed." message
           setShowPopup(true);
         }
       } else {
@@ -162,7 +160,7 @@ export default function ChatbotButton() {
           {/* Body */}
           <div
             ref={chatBodyRef}
-            className="flex-1 p-4 overflow-y-auto overflow-x-hidden space-y-3 relative"
+            className="flex-1 p-4 overflow-y-auto overflow-x-hidden space-y-3 relative bg-white"
           >
             {messages.map((msg) => (
               <div
@@ -215,14 +213,14 @@ export default function ChatbotButton() {
           )}
 
           {/* Input */}
-          <div className="p-3 border-t border-gray-300 flex gap-2">
+          <div className="p-3 border-t border-gray-300 flex gap-2 bg-white">
             <input
               type="text"
               placeholder="Type a message..."
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && handleSend()}
-              className="flex-1 border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 text-gray-900"
+              className="flex-1 border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 text-gray-900 bg-white"
             />
             <button
               onClick={handleSend}
@@ -238,7 +236,9 @@ export default function ChatbotButton() {
       {showPopup && tableData && (
         <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
           <div className="bg-white rounded-xl p-6 w-[90vw] h-[80vh] shadow-lg flex flex-col">
-            <h3 className="text-lg font-semibold mb-4">Command Output</h3>
+            <h3 className="text-lg font-semibold mb-4 text-gray-900">
+              Command Output
+            </h3>
 
             <div className="flex-1 overflow-auto border rounded">
               <table className="min-w-full border-collapse text-sm">
@@ -286,11 +286,13 @@ export default function ChatbotButton() {
       {/* Expanded Message Modal */}
       {expandedMessage && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-xl p-6 w-[90vw] h-[80vh] shadow-lg flex flex-col">
-            <h3 className="text-lg font-semibold mb-4">Expanded View</h3>
+          <div className="bg-white rounded-xl p-6 w-[95vw] h-[85vh] shadow-lg flex flex-col">
+            <h3 className="text-lg font-semibold mb-4 text-orange-600">
+              Expanded View
+            </h3>
 
-            <div className="flex-1 overflow-auto border rounded bg-gray-50 p-4">
-              <pre className="whitespace-pre-wrap font-mono text-sm">
+            <div className="flex-1 overflow-auto border rounded bg-white p-4">
+              <pre className="whitespace-pre font-mono text-xs leading-snug text-gray-800">
                 {expandedMessage}
               </pre>
             </div>
