@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { MessageCircle, X, ArrowDown } from "lucide-react";
+import { MessageCircle, X, ArrowDown, Bot } from "lucide-react";
 
 export default function ChatbotButton() {
   const [open, setOpen] = useState(false);
@@ -13,6 +13,8 @@ export default function ChatbotButton() {
 
   const [showPopup, setShowPopup] = useState(false);
   const [tableData, setTableData] = useState(null);
+
+  const [expandedMessage, setExpandedMessage] = useState(null);
 
   const [showScrollButton, setShowScrollButton] = useState(false);
 
@@ -45,15 +47,9 @@ export default function ChatbotButton() {
           const parsedTable = parseAsciiTable(lines);
 
           setTableData(parsedTable);
-          setMessages((prev) => [
-            ...prev,
-            {
-              id: Date.now(),
-              from: "bot",
-              text: "🔧 Command executed.",
-              isCommand: true,
-            },
-          ]);
+
+          // ✅ Removed the "Command executed." message
+          setShowPopup(true);
         }
       } else {
         setMessages((prev) => [
@@ -176,31 +172,19 @@ export default function ChatbotButton() {
                 }`}
               >
                 {msg.from === "bot" && (
-                  <div className="w-8 h-8 flex items-center justify-center mr-2">
-                    <img
-                      src="/your-bot-icon.png"
-                      alt="Bot"
-                      className="w-8 h-8 rounded-full object-cover"
-                    />
+                  <div className="w-8 h-8 flex items-center justify-center bg-orange-100 text-orange-600 rounded-full mr-2">
+                    <Bot className="w-5 h-5" />
                   </div>
                 )}
                 <div
-                  className={`px-3 py-2 rounded-lg max-w-[70%] text-sm break-words ${
+                  onClick={() => setExpandedMessage(msg.text)} // 👈 Expand on click
+                  className={`px-3 py-2 rounded-lg max-w-[70%] text-sm break-words cursor-pointer ${
                     msg.from === "bot"
                       ? "bg-gray-200 text-gray-800"
                       : "bg-orange-600 text-white"
                   }`}
                 >
-                  {msg.isCommand ? (
-                    <button
-                      onClick={() => setShowPopup(true)}
-                      className="text-blue-600 underline text-sm"
-                    >
-                      View Output
-                    </button>
-                  ) : (
-                    msg.text
-                  )}
+                  {msg.text}
                 </div>
               </div>
             ))}
@@ -212,7 +196,7 @@ export default function ChatbotButton() {
             {loading && (
               <div className="flex justify-start">
                 <div className="px-3 py-2 rounded-lg bg-gray-200 text-gray-500 text-sm animate-pulse">
-                  Sonic is typing...
+                  Sonic is processing...
                 </div>
               </div>
             )}
@@ -253,14 +237,18 @@ export default function ChatbotButton() {
       {/* Popup Modal for Command Output */}
       {showPopup && tableData && (
         <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
-          <div className="bg-white rounded-xl p-6 w-3/4 max-w-4xl shadow-lg">
+          <div className="bg-white rounded-xl p-6 w-[90vw] h-[80vh] shadow-lg flex flex-col">
             <h3 className="text-lg font-semibold mb-4">Command Output</h3>
-            <div className="overflow-x-auto max-h-[500px]">
-              <table className="w-full border border-gray-300 text-sm">
-                <thead className="bg-gray-100">
+
+            <div className="flex-1 overflow-auto border rounded">
+              <table className="min-w-full border-collapse text-sm">
+                <thead className="bg-gray-100 sticky top-0 z-10">
                   <tr>
                     {tableData[0].map((col, i) => (
-                      <th key={i} className="border px-3 py-2 text-left">
+                      <th
+                        key={i}
+                        className="border px-3 py-2 text-left font-mono"
+                      >
                         {col}
                       </th>
                     ))}
@@ -270,7 +258,10 @@ export default function ChatbotButton() {
                   {tableData.slice(1).map((row, r) => (
                     <tr key={r} className="hover:bg-gray-50">
                       {row.map((cell, c) => (
-                        <td key={c} className="border px-3 py-2">
+                        <td
+                          key={c}
+                          className="border px-3 py-2 font-mono whitespace-nowrap"
+                        >
                           {cell}
                         </td>
                       ))}
@@ -279,9 +270,34 @@ export default function ChatbotButton() {
                 </tbody>
               </table>
             </div>
+
             <div className="flex justify-end mt-4">
               <button
                 onClick={() => setShowPopup(false)}
+                className="bg-orange-600 text-white px-4 py-2 rounded-lg hover:bg-orange-700"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Expanded Message Modal */}
+      {expandedMessage && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-xl p-6 w-[90vw] h-[80vh] shadow-lg flex flex-col">
+            <h3 className="text-lg font-semibold mb-4">Expanded View</h3>
+
+            <div className="flex-1 overflow-auto border rounded bg-gray-50 p-4">
+              <pre className="whitespace-pre-wrap font-mono text-sm">
+                {expandedMessage}
+              </pre>
+            </div>
+
+            <div className="flex justify-end mt-4">
+              <button
+                onClick={() => setExpandedMessage(null)}
                 className="bg-orange-600 text-white px-4 py-2 rounded-lg hover:bg-orange-700"
               >
                 Close
