@@ -1,6 +1,7 @@
 import Layout from "../components/Layout";
 import { Router } from "lucide-react";
 import PortOp from "../components/port_operation/get_port_op";
+import ChatbotButton from "../components/ChatbotButton";
 import { useState } from "react";
 import { ChevronDown, ChevronRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
@@ -23,6 +24,7 @@ export default function PortOps() {
       >
         <PortOp />
       </Section>
+      <ChatbotButton />
     </Layout>
   );
 }

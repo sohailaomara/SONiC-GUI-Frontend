@@ -18,6 +18,7 @@ import Usage from "../components/health/Usage";
 import Temperature from "../components/health/Temperature";
 import Fans from "../components/health/Fans";
 import PSU from "../components/health/PSU";
+import ChatbotButton from "../components/ChatbotButton";
 
 export default function HomePage() {
   return (
@@ -69,6 +70,7 @@ export default function HomePage() {
           </div>
         </div>
       </div>
+      <ChatbotButton />
     </Layout>
   );
 

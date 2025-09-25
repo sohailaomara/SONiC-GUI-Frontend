@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Menu, X, Terminal } from "lucide-react";
 import CLI from "./CLI";
-import ChatbotButton from "./ChatbotButton";
 import { fetchCurrentUser } from "./auth/getuser"; // your axios call
 
 export default function Layout({ children }) {
@@ -157,7 +156,6 @@ export default function Layout({ children }) {
           </div>
         </div>
       )}
-      <ChatbotButton />
     </div>
   );
 }

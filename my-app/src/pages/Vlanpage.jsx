@@ -8,6 +8,7 @@ import { useState } from "react";
 import { AppWindow, Repeat2, Trash, CornerRightDown, Text } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { ChevronDown, ChevronRight } from "lucide-react";
+import ChatbotButton from "../components/ChatbotButton";
 
 export default function VlanPage() {
   const navigate = useNavigate();
@@ -29,12 +30,6 @@ export default function VlanPage() {
       >
         <PostVlan />
       </Section>
-      {/* <Section
-        title="Patch VLAN"
-        icon={<Repeat2 className="text-orange-500" />}
-      >
-        <PatchVlan />
-      </Section> */}
       <Section title="VLAN Data" icon={<Text className="text-orange-500" />}>
         <GetVlans />
       </Section>
@@ -44,6 +39,7 @@ export default function VlanPage() {
       <Section title="Delete VLAN" icon={<Trash className="text-orange-500" />}>
         <DeleteVlans />
       </Section>
+      <ChatbotButton />
     </Layout>
   );
 }
